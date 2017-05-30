@@ -13,5 +13,10 @@ namespace ForYouApplication
 		{
             InitializeComponent();
 		}
+
+        private void test()
+        {
+
+        }
 	}
 }
