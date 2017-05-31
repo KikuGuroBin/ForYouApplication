@@ -14,9 +14,9 @@ namespace ForYouApplication
             InitializeComponent();
 		}
 
-        private void test()
+        private void Test()
         {
-
+            this.Label1.Text = "ざまりうす"; /*追加　コミットのテスト*/
         }
 	}
 }
