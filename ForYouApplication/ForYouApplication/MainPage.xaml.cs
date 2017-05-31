@@ -16,7 +16,7 @@ namespace ForYouApplication
 
         private void Test()
         {
-            this.Label1.Text = "ざまりうす"; /*追加　コミットのテスト*/
+            this.Label1.Text = "ざまりうす"; /*追加　コミットのテストjijiji*/
         }
 	}
 }
