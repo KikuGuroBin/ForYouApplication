@@ -14,6 +14,13 @@ namespace ForYouApplication
             InitializeComponent();
 		}
 
+        /*2017/5/31 追加
+           ボタン押下に呼び出される*/
+        private void OnClicked(Object sender, EventArgs args)
+        {
+
+        }
+
         private void Test()
         {
             this.Label1.Text = "ざまりうす"; /*追加　コミットのテスト*/
