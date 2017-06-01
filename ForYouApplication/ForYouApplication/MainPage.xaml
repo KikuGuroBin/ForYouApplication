@@ -4,14 +4,20 @@
              xmlns:local="clr-namespace:ForYouApplication"
              x:Class="ForYouApplication.MainPage">
 
-    <Label
-        x:Name="Label1"
-        Text="Welcome to ForYouApplication!" 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" />
+    <StackLayout>
+        <Label
+            x:Name="Label1"
+            Text="Welcome to ForYouApplication!" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
 
-    <Button
-        x:Name="Button1"
-        Text="BUTTON"
-        Clicked="OnClicked"/>
+        <Button
+            x:Name="Button1"
+            Text="BUTTON"
+            Clicked="OnClick"/>
+
+        <Button
+            x:Name="ScanButton"
+            Clicked="ScanButtonClick"/>
+    </StackLayout>
 </ContentPage>

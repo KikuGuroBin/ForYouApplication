@@ -13,7 +13,7 @@ namespace ForYouApplication
 		{
 			InitializeComponent();
 
-			MainPage = new ForYouApplication.MainPage();
+			MainPage = new NavigationPage(new ForYouApplication.MainPage());
 		}
 
 		protected override void OnStart ()

@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<uses-sdk android:minSdkVersion="15" />
+  
+  <!--2017/6/1 追加 QRコード読み取り用に権限を２つ追加-->
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.FLASHLIGHT" />
+	
+  <uses-sdk android:minSdkVersion="15" />
 	<application android:label="ForYouApplication.Android"></application>
 </manifest>

@@ -22,6 +22,12 @@ namespace ForYouApplication.Droid
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new ForYouApplication.App ());
 		}
-	}
+
+        /*2017/6/1 追加 Android6.0以上の端末用のランタイムパーミッションの設定*/
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }
 
