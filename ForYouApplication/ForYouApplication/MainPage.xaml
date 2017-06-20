@@ -16,8 +16,22 @@
             Text="BUTTON"
             Clicked="OnClick"/>
 
+        <Button 
+            x:Name="Button2"
+            Text="BUTTON2"
+            Clicked="OnClick"/>
+
+        <Button
+            x:Name="Button3"
+            Text="BUTTON3"
+            Clicked="OnClick2"/>
+
         <Button
             x:Name="ScanButton"
+            Text="QRScan"
             Clicked="ScanButtonClick"/>
+
+        <Editor
+            x:Name="Address"/>
     </StackLayout>
 </ContentPage>
