@@ -24,15 +24,10 @@ namespace ForYouApplication
         public MainPage()
 		{
             InitializeComponent();
-
-
-
-            
-
 		}
 
         /* ボタン押下に呼び出される*/
-        private async void OnClick(Object sender, EventArgs args)
+        private void OnClick(Object sender, EventArgs args)
         {
             /*テスト用*/
             if (sender.Equals(this.Button1))
@@ -73,12 +68,19 @@ namespace ForYouApplication
                 {
                     /* AsynchronousClient.StartClient(); */
 
-                    Socket client = new ConnectTest().Connection(hostAddress);
+                    /* Socket client = new ConnectTest().Connection(hostAddress); */
 
                     /*
                     Client client = new Client();
                     client.Connection(hostAddress);
                     */
+
+                    AsyncTcpClient client = new AsyncTcpClient();
+                    if (client.Connection(hostAddress))
+                    {
+                        new AsyncReceiver(client).ReceiveTask();
+                        Navigation.PushAsync(new InputForm(client), true);
+                    }
                 }
                 catch (Exception e)
                 {
