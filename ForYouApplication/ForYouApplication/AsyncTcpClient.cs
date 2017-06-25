@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace ForYouApplication
 {
@@ -14,19 +13,21 @@ namespace ForYouApplication
         private const int BYTESIZE = 256;
         private const int TIMEOUT = 30000;
         private const string DEFAULTRECEIVEDATA = "NONE";
+        private const string ENDCONNECTION = "<ENDCONNECTION>";
 
-        private TcpClient client;
+        private TcpClient Client;
 
-        /* 接続 */
+        /* 接続用 */
         public bool Connection(String hostAddress)
         {
-            Debug.WriteLine("接続開始");
             bool flag = true;
 
             try
             {
-                /* TcpClientを作成し、サーバーと接続する */
-                client = new TcpClient(hostAddress, PORT);
+                /* TcpClientを作成し、リモートホストと接続する */
+                Client = new TcpClient(hostAddress, PORT);
+
+                Receive();
             }
             catch (Exception e)
             {
@@ -34,12 +35,10 @@ namespace ForYouApplication
                 flag = false;
             }
 
-            Debug.WriteLine("接続");
-
             return flag;
         }
 
-        /* 送信 */
+        /* 送信用 */
         public void Send(string command, string data)
         {
             /* タグとデータの結合 */
@@ -47,63 +46,100 @@ namespace ForYouApplication
             sb.Append(data);
 
             /* string型に変換 */
-            string sendData = sb.ToString();
+            string sendData  = sb.ToString();
 
             /* NetworkStreamを取得する */
-            NetworkStream ns = client.GetStream();
+            NetworkStream ns = Client.GetStream();
             /* タイムアウト設定(30秒) */
-            ns.WriteTimeout = TIMEOUT;
+            ns.WriteTimeout  = TIMEOUT;
 
             /* ホストに送信する文字列をByte型配列に変換 */
             byte[] sendBytes = Encoding.UTF8.GetBytes(sendData);
 
             /* データを送信する */
             ns.Write(sendBytes, 0, sendBytes.Length);
-
-            ns.Close();
-            Debug.WriteLine(sendData);
         }
 
-        /* 受信 
-         * ホスト側からの切断要求時にしか呼ばれない
+        /* 
+         * 受信用
+         * 接続開始から非同期で動かす
+         * 現段階では実質リモートホストからの切断要求受付用
          */
-        public string Receive()
+        public async void Receive()
         {
             /* NetworkStreamを取得する */
-            NetworkStream ns = client.GetStream();
+            NetworkStream ns = Client.GetStream();
             /* タイムアウト設定(30秒) */
-            ns.ReadTimeout = TIMEOUT;
+            ns.ReadTimeout   = TIMEOUT;
+            
+            /* 受信データ格納用 */
+            byte[] buffer    = new byte[BYTESIZE];
+            
+            /* データを受信するまでここでメインスレッドをブロックする */
+            await ns.ReadAsync(buffer, 0, buffer.Length);
 
-            /* サーバーから送られたデータ格納用 */
-            MemoryStream ms = new MemoryStream();
-            string resData  = DEFAULTRECEIVEDATA;
-            byte[] resBytes = new byte[BYTESIZE];
-            int resSize     = 0;
+            /* デバッグ用 */
+            Debug.WriteLine("--------------受信--------------");
 
-            /* まだ読み取れるデータがある場合、受信を続ける */
-            while (ns.DataAvailable)
-            {
-                //データの一部を受信する
-                resSize = ns.Read(resBytes, 0, resBytes.Length);
+            /* 切断 */
+            Client.Close();
 
-                //受信したデータを蓄積する
-                ms.Write(resBytes, 0, resSize);
-            }
 
-            /* 受信したデータをstring型に変換 */
-            resData = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+            /* ------------------以下メモ------------------ */
 
-            /* ストリームを閉じる */
-            ms.Close();
-            ns.Close();
 
-            return resData;
+            /* 読み取り不可になるまで受信を続ける 
+                while (ns.DataAvailable)
+                {
+                
+                }
+            */
+
+
+            /*
+                await Task.Run(() =>
+                {
+                    /* NetworkStreamを取得する
+                    NetworkStream ns = Client.GetStream();
+
+                    /* 受信不可になるまでここで止める
+                    while (Client.Connected) {}
+
+                    Debug.WriteLine("--------------切断--------------");
+                });
+            */
+
+
+            /* ↓MemoryStreamのでの受信
+
+                /* リモートホストから送られたデータ格納用 
+                MemoryStream ms = new MemoryStream();
+                string data = DEFAULTRECEIVEDATA;
+                byte[] buffer = new byte[BYTESIZE];
+                int bufferSize = 0;
+
+                /* 読み取り不可になるまで受信を続ける 
+                while (ns.DataAvailable)
+                {
+                    //データの一部を受信する
+                    bufferSize = await ns.ReadAsync(buffer, 0, buffer.Length);
+
+                    //受信したデータを蓄積する
+                    Encoding.UTF8.GetString(buffer, 0, bufferSize);
+                }
+
+                /* 受信したデータをstring型に変換 
+                data = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+
+                /* ストリームを閉じる 
+                ms.Close();
+            */
         }
 
         /* 切断 */
-        public void DisConnect()
+        public void Disconnect()
         {
-            client.Close();
+            Client.Close();
         }
     }
 }

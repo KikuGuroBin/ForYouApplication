@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Communication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConnectTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InputForm.xaml.cs">
       <DependentUpon>InputForm.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -23,6 +24,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1.xaml.cs">
+      <DependentUpon>MasterDetailPage1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1Detail.xaml.cs">
+      <DependentUpon>MasterDetailPage1Detail.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1Master.xaml.cs">
+      <DependentUpon>MasterDetailPage1Master.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1MenuItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)State.cs" />
   </ItemGroup>
@@ -38,6 +55,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)InputForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1Master.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1Detail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

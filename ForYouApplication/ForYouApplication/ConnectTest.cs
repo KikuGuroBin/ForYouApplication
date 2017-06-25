@@ -52,10 +52,7 @@ namespace ForYouApplication
 
             Debug.WriteLine("deg : スレッド再開");
 
-
-            /* ホストからのメッセージがOKの場合は生成したSocketを戻り値にする
-             * それ以外の場合はnullを戻り値にする */
-            return response.IndexOf("OK") > -1 ? client : null;
+            return client;
         }
  
         /* ホストとの接続確立後の処理 */
@@ -66,7 +63,7 @@ namespace ForYouApplication
             /* IAsyncResultからSocketを取り出す */
             Socket socket = (Socket)ar.AsyncState;
             /* ホストからの最初のメッセージを格納 */
-            response = new Communication().ConnectWait(socket);
+            //response = new Communication().ConnectWait(socket);
 
             /* デバッグ */
             Debug.WriteLine(response);

@@ -7,7 +7,17 @@
             <Label Text="Welcome to Xamarin Forms!" />
             <Editor x:Name="SendText" />
             <Button x:Name="SendButton"
-                Clicked="OnClick" />
+                    Text="TcpClient送信"
+                    Clicked="OnClick" />
+            <Button x:Name="DisconnButton"
+                    Text="TcpClient切断"
+                    Clicked="OnClick" />
+            <Button x:Name="Send"
+                    Text="Socket送信"
+                    Clicked="OnClick2" />
+            <Button x:Name="Disconn"
+                    Text="Socket切断"
+                    Clicked="OnClick2" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

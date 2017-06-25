@@ -18,13 +18,18 @@
 
         <Button 
             x:Name="Button2"
-            Text="BUTTON2"
+            Text="CONNECTION"
             Clicked="OnClick"/>
 
         <Button
-            x:Name="Button3"
-            Text="BUTTON3"
-            Clicked="OnClick2"/>
+            x:Name="Sock"
+            Text="Connection2"
+            Clicked="OnClick" />
+
+        <Button
+            x:Name="Intent"
+            Text="Intent"
+            Clicked="OnClick"/>
 
         <Button
             x:Name="ScanButton"

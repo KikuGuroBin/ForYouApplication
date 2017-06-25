@@ -43,7 +43,7 @@ namespace ForYouApplication
             }
         }
 
-        /* ホストからのデータ受信時のコールバック*/
+        /* ホストからのデータ受信時のコールバック */
         private void ReceiveCallback(IAsyncResult ar)
         {
             try

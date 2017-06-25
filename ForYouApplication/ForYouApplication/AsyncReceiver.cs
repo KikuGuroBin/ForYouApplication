@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ForYouApplication
 {
@@ -12,12 +8,12 @@ namespace ForYouApplication
         private const string DEFAULTRECEIVEDATA = "NONE";
         private const string ENDCONNECTION = "<ENDCONNECTION>"; 
 
-        private AsyncTcpClient client;
+        private AsyncTcpClient Client;
 
         /* コンストラクタ */
         public AsyncReceiver(AsyncTcpClient client)
         {
-            this.client = client;
+            this.Client = client;
         }
 
         /* 非同期でホストからの受信待ちをし、受信内容に応じて処理を行う */
@@ -29,7 +25,7 @@ namespace ForYouApplication
                 while (true)
                 {
                     /* ホストからの受信データ取得 */
-                    string data = client.Receive();
+                    string data = "";
 
                     /* 受信したデータがない場合 */
                     if (data.Equals(DEFAULTRECEIVEDATA))
@@ -39,11 +35,8 @@ namespace ForYouApplication
                     /* ホストから切断要求があった場合 */
                     else if (data.IndexOf(ENDCONNECTION) > -1)
                     {
-                        client.DisConnect();
-                    }
-                    else
-                    {
-
+                        Client.Disconnect();
+                        break;
                     }
                 }
             });
