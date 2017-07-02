@@ -16,16 +16,6 @@
             Text="BUTTON"
             Clicked="OnClick"/>
 
-        <Button 
-            x:Name="Button2"
-            Text="CONNECTION"
-            Clicked="OnClick"/>
-
-        <Button
-            x:Name="Sock"
-            Text="Connection2"
-            Clicked="OnClick" />
-
         <Button
             x:Name="Intent"
             Text="Intent"
@@ -36,7 +26,5 @@
             Text="QRScan"
             Clicked="ScanButtonClick"/>
 
-        <Editor
-            x:Name="Address"/>
     </StackLayout>
 </ContentPage>

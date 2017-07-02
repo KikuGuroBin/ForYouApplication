@@ -9,27 +9,32 @@ using Android.OS;
 
 using ZXing.Net.Mobile.Android;
 
-using ForYouApplication;
-using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace ForYouApplication.Droid
 {
 	[Activity (Label = "ForYouApplication", Icon = "@drawable/icon", Theme="@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+	public class MainActivity : FormsAppCompatActivity
 	{
-		protected override void OnCreate (Bundle bundle)
+
+        protected override void OnCreate (Bundle bundle)
 		{
-            
+            /* Xamarin.Forms用 */
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar; 
             
 			base.OnCreate (bundle);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
-			LoadApplication (new ForYouApplication.App ());
-
-            System.Diagnostics.Debug.WriteLine("takumi-----------------Android-----------------");
+			LoadApplication (new App ());
+            
+            System.Diagnostics.Debug.WriteLine("takumi-----------------Xamarin.Android-----------------");
 		}
+
+        public void OnClick(View v)
+        {
+            System.Diagnostics.Debug.WriteLine("Click");
+        }
 
         /* Android6.0以上の端末用のランタイムパーミッションの設定 */
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

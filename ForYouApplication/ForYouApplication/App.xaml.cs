@@ -13,24 +13,29 @@ namespace ForYouApplication
 		{
 			InitializeComponent();
 
-            //MainPage = new NavigationPage(new MainPage());
+            System.Diagnostics.Debug.WriteLine("takumi-----------------------Xamarin.Froms-----------------------");
 
-            MainPage = new NavigationPage(new MasterDetailPage1());
+            MainPage = new NavigationPage(new MainPage());
+
+            /* MainPage = new NavigationPage(new MasterDetailPage1()); */
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+            // Handle when your app starts
+            System.Diagnostics.Debug.WriteLine("deg : Application.OnStart()");
 		}
 
 		protected override void OnSleep ()
 		{
-			// Handle when your app sleeps
-		}
+            // Handle when your app sleeps
+            System.Diagnostics.Debug.WriteLine("deg : Application.OnSleep()");
+        }
 
 		protected override void OnResume ()
 		{
-			// Handle when your app resumes
-		}
+            // Handle when your app resumes
+            System.Diagnostics.Debug.WriteLine("deg : Application.OnResume()");
+        }
 	}
 }

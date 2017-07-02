@@ -52,5 +52,33 @@ namespace ForYouApplication
             }
             #endregion
         }
+
+        class MasterDetailPage1Shortcut : INotifyPropertyChanged
+        {
+            public ObservableCollection<MasterDetailPage1MenuItem> MenuItems { get; set; }
+
+            public MasterDetailPage1Shortcut()
+            {
+                MenuItems = new ObservableCollection<MasterDetailPage1MenuItem>(new[]
+                {
+                    new MasterDetailPage1MenuItem { Id = 0, Title = "Page 1" },
+                    new MasterDetailPage1MenuItem { Id = 1, Title = "Page 2" },
+                    new MasterDetailPage1MenuItem { Id = 2, Title = "Page 3" },
+                    new MasterDetailPage1MenuItem { Id = 3, Title = "Page 4" },
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "Page 5" },
+                });
+            }
+
+            #region INotifyPropertyChanged Implementation
+            public event PropertyChangedEventHandler PropertyChanged;
+            void OnPropertyChanged([CallerMemberName] string propertyName = "")
+            {
+                if (PropertyChanged == null)
+                    return;
+
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            #endregion
+        }
     }
 }

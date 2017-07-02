@@ -17,8 +17,6 @@ namespace ForYouApplication
         private ManualResetEvent connectDone = new ManualResetEvent(false);
         /* ホストとの接続確立後のSocket格納用 */
         private Socket client;
-        /* ホストからの受信データ格納用 */
-        private string response;
 
         /* ホストと接続するためのSocket生成 */
         public Socket Connection(string address)
@@ -64,10 +62,7 @@ namespace ForYouApplication
             Socket socket = (Socket)ar.AsyncState;
             /* ホストからの最初のメッセージを格納 */
             //response = new Communication().ConnectWait(socket);
-
-            /* デバッグ */
-            Debug.WriteLine(response);
-
+            
             /* スレッド再開 */
             connectDone.Set();
         }

@@ -17,8 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Communication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConnectTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InputForm.xaml.cs">
-      <DependentUpon>InputForm.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)InputFormE.xaml.cs">
+      <DependentUpon>InputFormE.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1MenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PlatformDiscrimination.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)State.cs" />
@@ -54,7 +55,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)InputForm.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)InputFormE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

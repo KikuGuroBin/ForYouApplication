@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using System.Diagnostics;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 
 namespace ForYouApplication
 {
@@ -26,8 +24,6 @@ namespace ForYouApplication
             {
                 /* TcpClientを作成し、リモートホストと接続する */
                 Client = new TcpClient(hostAddress, PORT);
-
-                Receive();
             }
             catch (Exception e)
             {
@@ -39,17 +35,29 @@ namespace ForYouApplication
         }
 
         /* 送信用 */
-        public void Send(string command, string data)
+        public void Send(params string[] data)
         {
-            /* タグとデータの結合 */
-            StringBuilder sb = new StringBuilder(command);
-            sb.Append(data);
+            string sendData = "";
 
-            /* string型に変換 */
-            string sendData  = sb.ToString();
+            if (data.Length <= 1)
+            {
+                sendData = data[0];
+            }
+            else
+            {
+                /* タグとデータの結合 */
+                StringBuilder sb = new StringBuilder(data[0]);
+                sb.Append(data[1]);
+
+                /* string型に変換 */
+                sendData = sb.ToString();
+            }
 
             /* NetworkStreamを取得する */
             NetworkStream ns = Client.GetStream();
+
+            Debug.WriteLine(ns.WriteTimeout);
+
             /* タイムアウト設定(30秒) */
             ns.WriteTimeout  = TIMEOUT;
 

@@ -20,6 +20,7 @@ namespace ForYouApplication.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            //SetContentView(Resource.Layout.sample);
 
             // Create your application here
         }
