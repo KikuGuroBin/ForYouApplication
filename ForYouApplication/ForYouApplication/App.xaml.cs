@@ -12,9 +12,7 @@ namespace ForYouApplication
 		public App ()
 		{
 			InitializeComponent();
-
-            System.Diagnostics.Debug.WriteLine("takumi-----------------------Xamarin.Froms-----------------------");
-
+            
             MainPage = new NavigationPage(new MainPage());
 
             /* MainPage = new NavigationPage(new MasterDetailPage1()); */

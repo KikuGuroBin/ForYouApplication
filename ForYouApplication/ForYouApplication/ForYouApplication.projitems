@@ -14,35 +14,33 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Communication.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ConnectTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InputFormE.xaml.cs">
-      <DependentUpon>InputFormE.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ITrackPad.xaml.cs">
+      <DependentUpon>ITrackPad.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1.xaml.cs">
-      <DependentUpon>MasterDetailPage1.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SendFormPage.xaml.cs">
+      <DependentUpon>SendFormPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1Detail.xaml.cs">
-      <DependentUpon>MasterDetailPage1Detail.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)SendFormDetail.xaml.cs">
+      <DependentUpon>SendFormDetail.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1Master.xaml.cs">
-      <DependentUpon>MasterDetailPage1Master.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)SendFormMaster.xaml.cs">
+      <DependentUpon>SendFormMaster.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MasterDetailPage1MenuItem.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)SendFormMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)PlatformDiscrimination.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)State.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
@@ -55,25 +53,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)InputFormE.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SendFormPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SendFormMaster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1Master.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SendFormDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterDetailPage1Detail.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ITrackPad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

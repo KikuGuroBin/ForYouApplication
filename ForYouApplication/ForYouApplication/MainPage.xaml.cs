@@ -7,16 +7,13 @@ namespace ForYouApplication
 {
 	public partial class MainPage : ContentPage
 	{
-
-        private const string IPADDRESSREGULAREXPRESSION = "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}";
-        
         public MainPage()
 		{
             InitializeComponent();
 		}
 
         /* ボタン押下に呼び出される */
-        private void OnClick(Object sender, EventArgs args)
+        private async void OnClick(Object sender, EventArgs args)
         {
             /* テスト用 */
             if (sender.Equals(this.Button1))
@@ -30,7 +27,12 @@ namespace ForYouApplication
             }
             else if (sender.Equals(Intent))
             {
-                Navigation.PushAsync(new MasterDetailPage1(), true);
+                await Navigation.PopAsync(false);
+                await Navigation.PushAsync(new SendFormPage(), true);
+            }
+            else if (sender.Equals(DebugButton))
+            {
+                
             }
         }
 
@@ -70,29 +72,9 @@ namespace ForYouApplication
                     {
                         /* 受信待ち開始 */
                         client.Receive();
-
-                        try
-                        {
-                            /* デバイス分け */
-                            if (Device.RuntimePlatform == Device.Android)
-                            {
-                                Debug.WriteLine("--------------------Android端末用--------------------");
-
-                                /* 送信文字入力画面へ画面遷移 */
-                                await Navigation.PushAsync(new MasterDetailPage1(client), true);
-                            }
-                            else if (Device.RuntimePlatform == Device.iOS)
-                            {
-                                Debug.WriteLine("--------------------iOS端末用--------------------");
-
-                                /* 送信文字入力画面へ画面遷移 */
-                                await Navigation.PushAsync(new InputForm(client), true);
-                            }
-                        }
-                        catch(Exception e)
-                        {
-                            Debug.WriteLine(e.StackTrace);
-                        }
+                        
+                        /* 送信文字入力画面へ画面遷移 */
+                        await Navigation.PushAsync(new SendFormPage(client), true);    
                     }
                 });
             };

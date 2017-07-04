@@ -11,7 +11,7 @@ namespace ForYouApplication
         private const int BYTESIZE = 256;
         private const int TIMEOUT = 30000;
         private const string DEFAULTRECEIVEDATA = "NONE";
-        private const string ENDCONNECTION = "<ENDCONNECTION>";
+        private const string ENDCONNECTION = "<ENDCONN>";
 
         private TcpClient Client;
 

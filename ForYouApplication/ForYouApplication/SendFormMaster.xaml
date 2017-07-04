@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ForYouApplication.MasterDetailPage1Master"
+             x:Class="ForYouApplication.SendFormMaster"
              Title="Master">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
-              SeparatorVisibility="None"
+              SeparatorVisibility="Default"
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
@@ -16,26 +16,37 @@
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="15"/>
           </Grid.RowDefinitions>
           <Label
+              x:Name="ListHeader"
               Grid.Column="1"
-              Grid.Row="2"
-              Text="AppName"
-              Style="{DynamicResource SubtitleStyle}"/>
+              Grid.Row="1"
+              Text="AppNameと接続中…"
+              Style="{DynamicResource SubtitleStyle}"
+              FontSize="16"/>
         </Grid>
+        <!--
+        <StackLayout>
+          <Label
+            x:Name="ListHeader"
+            Text="AppNameと接続中…"
+            Style="{DynamicResource SubtitleStyle}"
+            FontSize="20"/>
+          <Button Text="Button"/>
+        </StackLayout>-->
       </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="7,7" HorizontalOptions="FillAndExpand">
               <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="24"/>
+                    FontSize="18"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

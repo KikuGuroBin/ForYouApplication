@@ -10,13 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace ForYouApplication
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterDetailPage1Detail : ContentPage
+    public partial class SendFormDetail : ContentPage
     {
-
         public Editor Editor;
-        public Button Disconnect;
 
-        public MasterDetailPage1Detail()
+        public SendFormDetail()
         {
             InitializeComponent();
 
@@ -24,7 +22,6 @@ namespace ForYouApplication
             Padding = new Thickness(0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
 
             Editor = SendText;
-            Disconnect = Disconn;
         }
     }
 }

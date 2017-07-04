@@ -26,5 +26,10 @@
             Text="QRScan"
             Clicked="ScanButtonClick"/>
 
+        <Button
+            x:Name="DebugButton"
+            Text="DEBUG"
+            Clicked="OnClick" />
+
     </StackLayout>
 </ContentPage>

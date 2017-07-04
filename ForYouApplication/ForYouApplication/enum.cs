@@ -7,18 +7,25 @@ namespace ForYouApplication
     /* リモートホストに送るタグ用 */
     public enum TagConstants
     {
-        /* 入力タグ */
-        INPUT,
         /* 確定タグ */
         ENTER,
         /* 削除タグ */
         DELETE,
         /* 変換タグ */
-        CONVERSION,
-        /* ショートカットタグ */
-        SHORTCUT,
+        CONV,
+        /* コピータグ */
+        COPY,
+        /* カットタグ */
+        CUT,
+        /* ペーストタグ */
+        PASTE,
         /* 切断タグ */
-        ENDCONNECTION
+        END
+    }
+
+    public enum IntegerConstants
+    {
+
     }
 
     /* enum TagConstantsの拡張クラス */
@@ -26,7 +33,7 @@ namespace ForYouApplication
     {
         public static string GetConstants(this TagConstants value)
         {
-            string[] values = {"<INP>", "<ENT>", "<DEL>", "<CON>", "<SHO>", "<END>"};
+            string[] values = {"<ENTER>", "<DELETE>", "<CONV>", "<COPY>", "<CUT>", "<PASTE>", "<ENDCONN>"};
             return values[(int)value];
         }
     }
@@ -35,7 +42,7 @@ namespace ForYouApplication
     {
         public void B()
         {
-            TagConstants.INPUT.GetConstants();
+            TagConstants.ENTER.GetConstants();
         }
     }
 }
