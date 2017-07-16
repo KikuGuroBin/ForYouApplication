@@ -34,8 +34,7 @@ namespace ForYouApplication
                     new SendFormMenuItem { Id = 1, Title = "トラックパッド" },
                     new SendFormMenuItem { Id = 2, Title = "テンプレート" },
                     new SendFormMenuItem { Id = 3, Title = "送信ログ" },
-                    new SendFormMenuItem { Id = 4, Title = "ショートカット" },
-                    new SendFormMenuItem { Id = 5, Title = "デバッグ" }
+                    new SendFormMenuItem { Id = 4, Title = "ショートカット" }
                 });
             }
             

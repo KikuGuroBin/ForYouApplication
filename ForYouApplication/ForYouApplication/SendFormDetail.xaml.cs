@@ -13,7 +13,7 @@ namespace ForYouApplication
     public partial class SendFormDetail : ContentPage
     {
         public Editor Editor;
-
+       
         public SendFormDetail()
         {
             InitializeComponent();

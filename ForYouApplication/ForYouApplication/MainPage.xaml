@@ -19,17 +19,13 @@
         <Button
             x:Name="Intent"
             Text="Intent"
+            BorderColor="AliceBlue"
+            BorderRadius="15"
             Clicked="OnClick"/>
 
         <Button
             x:Name="ScanButton"
             Text="QRScan"
             Clicked="ScanButtonClick"/>
-
-        <Button
-            x:Name="DebugButton"
-            Text="DEBUG"
-            Clicked="OnClick" />
-
     </StackLayout>
 </ContentPage>

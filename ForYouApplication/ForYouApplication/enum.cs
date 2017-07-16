@@ -9,8 +9,10 @@ namespace ForYouApplication
     {
         /* 確定タグ */
         ENTER,
-        /* 削除タグ */
+        /* デリートタグ */
         DELETE,
+        /* バックスペースタグ */
+        BACK,
         /* 変換タグ */
         CONV,
         /* コピータグ */
@@ -28,21 +30,27 @@ namespace ForYouApplication
 
     }
 
-    /* enum TagConstantsの拡張クラス */
-    public static class TagConstantsExpansion
+    /* TagConstantsの拡張クラス */
+    public static class TagConstantsEx
     {
+        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<END>" };
+
         public static string GetConstants(this TagConstants value)
         {
-            string[] values = {"<ENTER>", "<DELETE>", "<CONV>", "<COPY>", "<CUT>", "<PASTE>", "<ENDCONN>"};
             return values[(int)value];
         }
-    }
 
-    public class A
-    {
-        public void B()
+        public static bool Contains(string text)
         {
-            TagConstants.ENTER.GetConstants();
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (text.IndexOf(values[i]) > -1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

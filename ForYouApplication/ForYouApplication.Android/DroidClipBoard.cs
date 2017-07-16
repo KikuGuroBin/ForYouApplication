@@ -1,11 +1,8 @@
 ﻿using Android.Content;
-
 using Xamarin.Forms;
-
 using ForYouApplication.Droid;
 
 [assembly: Dependency(typeof(DroidClipBoard))]
-
 namespace ForYouApplication.Droid
 {
     public class DroidClipBoard : IClipBoard

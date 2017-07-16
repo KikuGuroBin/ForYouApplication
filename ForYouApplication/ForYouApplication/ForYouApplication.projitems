@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextProcess.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">

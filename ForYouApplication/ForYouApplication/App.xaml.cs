@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using ZXing.Net.Mobile.Forms;
 
 namespace ForYouApplication
 {
@@ -12,11 +13,9 @@ namespace ForYouApplication
 		public App ()
 		{
 			InitializeComponent();
-            
-            MainPage = new NavigationPage(new MainPage());
 
-            /* MainPage = new NavigationPage(new MasterDetailPage1()); */
-		}
+            MainPage = new NavigationPage(new MainPage());
+        }
 
 		protected override void OnStart ()
 		{
@@ -35,5 +34,5 @@ namespace ForYouApplication
             // Handle when your app resumes
             System.Diagnostics.Debug.WriteLine("deg : Application.OnResume()");
         }
-	}
+    }
 }

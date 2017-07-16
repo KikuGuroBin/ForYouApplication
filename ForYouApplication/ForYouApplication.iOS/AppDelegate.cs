@@ -24,12 +24,19 @@ namespace ForYouApplication.iOS
 		{
 			global::Xamarin.Forms.Forms.Init ();
 
-            /*2017/6/1 追加 QRコード読み取り用*/
+            /* QRコード読み取り用 */
             global::ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
             LoadApplication (new ForYouApplication.App ());
 
 			return base.FinishedLaunching (app, options);
 		}
-	}
+
+        public override void WillTerminate(UIApplication uiApplication)
+        {
+            System.Diagnostics.Debug.WriteLine(string.Format("WillTerminate. AppState={0}", uiApplication.ApplicationState.ToString()));
+
+            base.WillTerminate(uiApplication);
+        }
+    }
 }

@@ -3,12 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ForYouApplication.SendFormDetail"
              Title="Detail">
-    <StackLayout Padding="30">
+    <StackLayout>
         <!--
         <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
         -->
 
         <Editor x:Name="SendText"
                 VerticalOptions="FillAndExpand"/>
+
+        <Button x:Name="Back" 
+                Text="Back"/>
     </StackLayout>
 </ContentPage>

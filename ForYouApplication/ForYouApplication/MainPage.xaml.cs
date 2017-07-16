@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Net.Sockets;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
@@ -13,26 +13,17 @@ namespace ForYouApplication
 		}
 
         /* ボタン押下に呼び出される */
-        private async void OnClick(Object sender, EventArgs args)
+        private void OnClick(Object sender, EventArgs args)
         {
             /* テスト用 */
             if (sender.Equals(this.Button1))
             {
                 this.Label1.Text = "座マリウス";
-                string[] a = { "1.1.1.1", "10.2.1.10", "255.255.255.255", "192.168.2.101" };
-                foreach(var i in a)
-                {
-                    //Debug.WriteLine(i.(IPADDRESSREGULAREXPRESSION));
-                }
+               
             }
-            else if (sender.Equals(Intent))
+            else if (sender.Equals(this.Intent))
             {
-                await Navigation.PopAsync(false);
-                await Navigation.PushAsync(new SendFormPage(), true);
-            }
-            else if (sender.Equals(DebugButton))
-            {
-                
+                Navigation.PushAsync(new SendFormPage(), false);
             }
         }
 
@@ -40,7 +31,7 @@ namespace ForYouApplication
         async void ScanButtonClick(object sender, EventArgs s)
         {
             /* スキャナページの設定 */
-            var scanPage = new ZXingScannerPage()
+            ZXingScannerPage scanPage = new ZXingScannerPage()
             {
                 DefaultOverlayTopText = "バーコードを読み取ります",
                 DefaultOverlayBottomText = "",
@@ -62,19 +53,23 @@ namespace ForYouApplication
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
+
+                    /* ホストアドレス取得 */
                     string address = result.Text;
 
-                    /* AsyncTcpClient生成 */
-                    AsyncTcpClient client = new AsyncTcpClient();
-
-                    /* リモートホストと接続 */
-                    if (client.Connection(address))
+                    try
                     {
-                        /* 受信待ち開始 */
-                        client.Receive();
+                        TcpClient client = new TcpClient();
+
+                        /* 接続 */
+                        await client.ConnectAsync(address, 55555);
                         
                         /* 送信文字入力画面へ画面遷移 */
-                        await Navigation.PushAsync(new SendFormPage(client), true);    
+                        await Navigation.PushAsync(new SendFormPage(client), false);
+                    }
+                    catch(Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.StackTrace);
                     }
                 });
             };
