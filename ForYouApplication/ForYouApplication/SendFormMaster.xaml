@@ -16,10 +16,12 @@
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+              <!--
             <RowDefinition Height="15"/>
             <RowDefinition Height="15"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="15"/>
+              -->
           </Grid.RowDefinitions>
           <Label
               x:Name="ListHeader"

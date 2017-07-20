@@ -3,15 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ForYouApplication.SendFormDetail"
              Title="Detail">
-    <StackLayout>
+    <RelativeLayout HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    x:Name="MainLayout">
         <!--
         <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
         -->
 
         <Editor x:Name="SendText"
-                VerticalOptions="FillAndExpand"/>
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"/>
 
-        <Button x:Name="Back" 
-                Text="Back"/>
-    </StackLayout>
+        <StackLayout >
+            <Button x:Name="Back" 
+                    Text="Back"
+                    VerticalOptions="End"
+                    Margin="0"/>
+            <Button x:Name="ShortCut"
+                    Text="SH"
+                    VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </RelativeLayout>
 </ContentPage>

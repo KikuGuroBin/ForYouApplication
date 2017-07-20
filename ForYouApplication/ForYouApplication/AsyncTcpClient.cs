@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Net.Sockets;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace ForYouApplication
 {
@@ -15,6 +17,31 @@ namespace ForYouApplication
             this.Client = Client;
         }
 
+        /* 
+         * リモートホストの名前を取得する 
+         * 接続時に一度だけ呼ばれる
+         */
+        public async Task<string> GetHostName()
+        {
+            /* NetworkStreamを取得する */
+            NetworkStream ns = Client.GetStream();
+            /* タイムアウト設定(30秒) */
+            ns.ReadTimeout = TIMEOUT;
+
+            /* 受信データ格納用 */
+            MemoryStream ms = new MemoryStream();
+            byte[] buffer = new byte[BYTESIZE];
+
+            /* データを受信するまでここでスレッドをブロックする */
+            int bytes = await ns.ReadAsync(buffer, 0, buffer.Length);
+
+            ms.Write(buffer, 0, bytes);
+
+            string read = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+
+            return read;
+        }
+
         /* 送信用 */
         public async void Send(string data)
         {
@@ -24,10 +51,10 @@ namespace ForYouApplication
             ns.WriteTimeout  = TIMEOUT;
 
             /* ホストに送信する文字列をByte型配列に変換 */
-            byte[] sendBytes = Encoding.UTF8.GetBytes(data);
+            byte[] buffer = Encoding.UTF8.GetBytes(data);
 
             /* データを送信する */
-            await ns.WriteAsync(sendBytes, 0, sendBytes.Length);
+            await ns.WriteAsync(buffer, 0, buffer.Length);
         }
 
         /* 
@@ -40,10 +67,10 @@ namespace ForYouApplication
             /* NetworkStreamを取得する */
             NetworkStream ns = Client.GetStream();
             /* タイムアウト設定(30秒) */
-            ns.ReadTimeout   = TIMEOUT;
+            ns.ReadTimeout = TIMEOUT;
             
             /* 受信データ格納用 */
-            byte[] buffer    = new byte[BYTESIZE];
+            byte[] buffer = new byte[BYTESIZE];
             
             /* データを受信するまでここでスレッドをブロックする */
             await ns.ReadAsync(buffer, 0, buffer.Length);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -35,6 +36,9 @@ namespace ForYouApplication
             
             Client = new AsyncTcpClient(client);
 
+            /* リモートホスト名取得 */
+            SetHostName();
+            
             /* 受信待ち開始 */
             Client.Receive();
 
@@ -45,6 +49,34 @@ namespace ForYouApplication
             DetailPage.Editor.TextChanged += EditorTextChanged;
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
         }
+
+        /* リモートホストの名前を取得する */
+        private async void SetHostName()
+        {
+            StringBuilder name = new StringBuilder(await Client.GetHostName());
+            name.Append(" と接続中...");
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MasterPage.Header.Text = name.ToString();
+            });
+        }
+
+        /* 自作バックスペース押下時のイベント */
+        private void OnBackSpeace(object sender, EventArgs args)
+        {
+            /* リモートホストが処理できる形式に加工 */
+            string send = TextProcess.TextJoin(null, TagConstants.BACK.GetConstants(), "1");
+            
+            /* 送信 */
+            Client.Send(send);
+        }
+
+        /* ショートカット選択ボタン押下時のイベント */
+        private void OnShortCut(object sender, EventArgs args)
+        {
+
+        }
         
         /* Master内のアイテムが選択されたときのイベント */
         private async void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -52,9 +84,7 @@ namespace ForYouApplication
             /* 選択されたメニューアイテム取得 */
             var item = e.SelectedItem as SendFormMenuItem;
             /* アイテムのフィールドIDを取得 */
-            int id = item
-                ?. Id
-                ?? -1;
+            int id = item ?. Id ?? -1;
             
             if(id == -1)
             {
@@ -67,8 +97,21 @@ namespace ForYouApplication
                 /* アラートシート表示 */
                 string result = await DisplayActionSheet("選択してください", "", "", "コピー", "ペースト", "カット");
 
-                /* リモートホストに送信 */
-                Client.Send("SHORTCUT");
+                if (result.Equals("コピー"))
+                {
+                    /* リモートホストに送信 */
+                    Client.Send(TagConstants.COPY.GetConstants());
+                }
+                else if (result.Equals("ペースト"))
+                {
+                    /* リモートホストに送信 */
+                    Client.Send(TagConstants.PASTE.GetConstants());
+                }
+                else if (result.Equals("カット"))
+                {
+                    /* リモートホストに送信 */
+                    Client.Send(TagConstants.CUT.GetConstants());
+                }
             }
             /* 送信ログを選択した場合 */
             else if (id == 3)
@@ -79,10 +122,10 @@ namespace ForYouApplication
                 /* アラートシート表示 */
                 string result = await DisplayActionSheet("送信ログ", "", "", log);
 
-                if (result == "")
+                if (result != "")
                 {
                     /* 
-                     * DependencyServiceに設定した、
+                     * Dependencyに設定した、
                      * 各プラットフォームで作成したIClipBoardを実装したクラスを呼び出し、
                      * クラスのメソッドを使って選択したログをクリップボードに保存
                      */
@@ -128,14 +171,12 @@ namespace ForYouApplication
         /* Editorのテキストが変更(入力、変換、削除)されたときのイベント */
         private void EditorTextChanged(object sender, EventArgs args)
         {
-            /* TextChange中からのTextChange発生を阻止 */
-            if (EditorFlag)
+            /* TextChange中からのTextChange発生を抑制 */
+            if (!EditorFlag)
             {
-                return;
+                /* テキスト送信とEditor.Text操作 */
+                SendText(DetailPage.Editor.Text);
             }
-
-            /* テキスト送信とEditor.Text操作 */
-            SendText(DetailPage.Editor.Text);
         }
 
         /* バックボタン押下時のイベント */
@@ -151,29 +192,29 @@ namespace ForYouApplication
          */
         private async void SendText(string text)
         {
+            /* テキストチェンジ開始 */
+            EditorFlag = true;
+
             await Task.Run(() =>
             {
-                /* テキストチェンジ開始 */
-                EditorFlag = true;
-                
                 /* 加工後の文字列とEditorを操作するための数値を取得 */
-                (int index, int length, string send) process = SaveText == null ? 
-                                                                (-1, -1, text) : TextProcess.SendContentDeicsion(SaveText, text);
+                (int index, string send) process = SaveText == null ? 
+                                                   (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
 
-                /* リモートホストへ送信 
+                /* リモートホストへ送信 */
                 Client.Send(process.send);
-                */
-
+                
                 if (process.index > -1)
                 {
                     /* Editor内の文字列操作 */
                     string save = text.Substring(0, process.index + 1);
-                    text.Remove(0, process.index + 1);
+                    text = text.Substring(process.index + 1);
+                
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DetailPage.Editor.Text = text;
                     });
-
+                
                     /* ログに格納する */
                     SendLog.Enqueue(save);
                 }
@@ -208,10 +249,10 @@ namespace ForYouApplication
 
                 /* 現在のEditorのテキストの内容を保存 */
                 SaveText = text;
-                
-                /* テキストチェンジ終了 */
-                EditorFlag = false;
             });
+
+            /* テキストチェンジ終了 */
+            EditorFlag = false;
         }
     }
 }

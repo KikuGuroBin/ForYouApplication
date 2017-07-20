@@ -14,6 +14,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAlertDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITrackPad.xaml.cs">
@@ -24,6 +25,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Page.xaml.cs">
+      <DependentUpon>Page.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SendFormPage.xaml.cs">
       <DependentUpon>SendFormPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -73,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ITrackPad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

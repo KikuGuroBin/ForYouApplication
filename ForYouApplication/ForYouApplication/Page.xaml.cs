@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ForYouApplication
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SendFormDetail : ContentPage
-    {
-        public Editor Editor;
-        public Button button;
-
-        /* ---右からのショートカットメニュー用--- */
-        private StackLayout Panel;
-        public Button CopyButton;
-        public Button CutButton;
-        public Button PasteButton;
-        public ListView ShortCutList;
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class Page : ContentPage
+	{
         private double PanelWidth = -1;
+
         private bool _PanelShowing = false;
         private bool PanelShowing
         {
@@ -29,39 +26,21 @@ namespace ForYouApplication
                 _PanelShowing = value;
             }
         }
-        /* ------------------------ */
 
-        public SendFormDetail()
-        {
-            InitializeComponent();
+        private StackLayout Panel;
 
-            /* iOSだけ、上部に余白をとる */
-            Padding = new Thickness(0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
+		public Page ()
+		{
+			InitializeComponent ();
 
-            Editor = SendText;
+            CreatePanel();
 
-            button = Back;
-
-            ShortCut.Clicked += (s, e) =>
+            button.Clicked += (o, s) =>
             {
                 AnimatePanel();
             };
-
-            List<string> list = new List<string>()
-            {
-                "コピー",
-                "カット",
-                "ペースト",
-            };
-
-            ShortCutList = new ListView();
-            ShortCutList.ItemsSource = list;
-            
-            /* ショートカットメニュー用パネル組み込み */
-            CreatePanel();
-        }
-
-        /* ショートカットメニュー用パネル組み込み用 */
+		}
+        
         private void CreatePanel()
         {
             if (Panel == null)
@@ -69,7 +48,6 @@ namespace ForYouApplication
                 Panel = new StackLayout
                 {
                     Children = {
-                        /*
                         new Label {
                             Text = "Options",
                             HorizontalOptions = LayoutOptions.Start,
@@ -90,16 +68,22 @@ namespace ForYouApplication
                             VerticalOptions = LayoutOptions.Start,
                             HorizontalTextAlignment = TextAlignment.Center,
                             TextColor = Color.White
-                        },*/
-                        ShortCutList,
+                        },
+                        new Label {
+                            Text = "Options",
+                            HorizontalOptions = LayoutOptions.Start,
+                            VerticalOptions = LayoutOptions.Start,
+                            HorizontalTextAlignment = TextAlignment.Center,
+                            TextColor = Color.White
+                        },
                     },
                     Padding = 15,
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.EndAndExpand,
-                    BackgroundColor = Color.Blue
+                    BackgroundColor = Color.FromRgba(0, 0, 0, 180)
                 };
 
-                /* 生成したパネルをメインのレイアウトに組み込む */
+                // add to layout
                 MainLayout.Children.Add(Panel,
                     Constraint.RelativeToParent((p) => {
                         return MainLayout.Width - (this.PanelShowing ? PanelWidth : 0);
@@ -121,6 +105,7 @@ namespace ForYouApplication
 
         private async void AnimatePanel()
         {
+
             // swap the state
             this.PanelShowing = !PanelShowing;
 
@@ -135,9 +120,8 @@ namespace ForYouApplication
 
                 // layout the panel to slide out
                 var rect = new Rectangle(MainLayout.Width - Panel.Width, Panel.Y, Panel.Width, Panel.Height);
-                
                 await this.Panel.LayoutTo(rect, 250, Easing.CubicIn);
-                
+
                 // scale in the children for the panel
                 foreach (var child in Panel.Children)
                 {
@@ -147,6 +131,8 @@ namespace ForYouApplication
             }
             else
             {
+
+
                 // layout the panel to slide in
                 var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height);
                 await this.Panel.LayoutTo(rect, 200, Easing.CubicOut);

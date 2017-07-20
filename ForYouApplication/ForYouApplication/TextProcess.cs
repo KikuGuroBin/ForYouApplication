@@ -5,7 +5,7 @@ namespace ForYouApplication
 {
     public class TextProcess
     {
-        public static (int index, int length, string send) SendContentDeicsion(string before, string after)
+        public static (int index, string send) SendContentDeicsion(string before, string after)
         {
             /* 各文字列を一文字ずつに分割して配列に格納 */
             char[] befArr = before.ToCharArray();
@@ -43,14 +43,14 @@ namespace ForYouApplication
                 {
                     /* 加工 */
                     result = TextJoin(null, TagConstants.BACK.GetConstants(), "1");
-                    return (-1, -1, result);
+                    return (-1, result);
                 }
                 /* 変更後の文字数のほうが多かった場合、入力がされたと判定する */
                 else if (lenMin == befLen)
                 {
                     /* 加工 */
                     result = TextJoin(after.Substring(lenMin), null);
-                    return (-1, -1, result);
+                    return (-1, result);
                 }
             }
 
@@ -84,7 +84,7 @@ namespace ForYouApplication
                 result = TextJoin(null, TagConstants.DELETE.GetConstants(),
                                     Math.Max(diff.be, diff.af).ToString(),
                                         preIndex.ToString());
-                return (-1, -1, result);
+                return (-1, result);
             }
 
             /* ここまで来たら変換されたと判定する */
@@ -100,7 +100,7 @@ namespace ForYouApplication
                                 behiIndex == max - 1 ? "0" : (befLen - (behiIndex - diff.be + 1)).ToString(),
                                     (behiIndex - preIndex - diff.be + 1).ToString(), conv);
             
-            return (index, aftLen - index, result);
+            return (index, result);
         }
 
         /* 引数をリモートホストが処理できる形式に結合する */
@@ -111,7 +111,7 @@ namespace ForYouApplication
             /* タグとタグに付属する数値の結合 */
             for (int i = 1; tag != null && i < tag.Length; i++)
             {
-                /* 文字列<>はタグそのものと付属する数値の分割用 */
+                /* 文字列<>はタグと付属する数値の分割用 */
                 sb.Append("<>");
                 sb.Append(tag[i]);
             }
