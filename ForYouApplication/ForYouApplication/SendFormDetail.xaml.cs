@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,13 +12,13 @@ namespace ForYouApplication
     public partial class SendFormDetail : ContentPage
     {
         public Editor Editor;
-        public Button button;
+        public Button BackButton;
+
+        /* OnSizeAllocated制御用 */
+        private bool FirstOrder = true;
 
         /* ---右からのショートカットメニュー用--- */
         private StackLayout Panel;
-        public Button CopyButton;
-        public Button CutButton;
-        public Button PasteButton;
         public ListView ShortCutList;
         private double PanelWidth = -1;
         private bool _PanelShowing = false;
@@ -39,26 +43,57 @@ namespace ForYouApplication
             Padding = new Thickness(0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
 
             Editor = SendText;
-
-            button = Back;
-
+            
+            BackButton = Back;
+            
             ShortCut.Clicked += (s, e) =>
             {
                 AnimatePanel();
             };
-
-            List<string> list = new List<string>()
-            {
-                "コピー",
-                "カット",
-                "ペースト",
-            };
-
-            ShortCutList = new ListView();
-            ShortCutList.ItemsSource = list;
             
+            ShortCutList = new ListView();
+            InitializeTemplate();
+
             /* ショートカットメニュー用パネル組み込み */
             CreatePanel();
+        }
+
+        private void InitializeTemplate()
+        {
+            DataTemplate data = new DataTemplate(() =>
+            {
+                StackLayout layout = new StackLayout();
+
+                Label label = new Label();
+                label.SetBinding(
+                    Label.TextProperty,
+                    "Title",
+                    BindingMode.TwoWay,
+                    null,
+                    null
+                );
+
+                layout.Children.Add(label);
+
+                return new ViewCell() { View = layout };
+            });
+
+            ShortCutList.ItemTemplate = data;
+        }
+
+        /* 画面サイズが変わったときに呼ばれる */
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+
+            /* 初回だけ処理を行う */
+            if (FirstOrder)
+            {
+                SendItems.WidthRequest = width;
+                SendItems.HeightRequest = height - 70;
+
+                FirstOrder = false;
+            }
         }
 
         /* ショートカットメニュー用パネル組み込み用 */
@@ -90,7 +125,8 @@ namespace ForYouApplication
                             VerticalOptions = LayoutOptions.Start,
                             HorizontalTextAlignment = TextAlignment.Center,
                             TextColor = Color.White
-                        },*/
+                        },
+                        */
                         ShortCutList,
                     },
                     Padding = 15,
@@ -127,36 +163,70 @@ namespace ForYouApplication
             // show or hide the panel
             if (this.PanelShowing)
             {
-                // hide all children
+                /* hide all children
                 foreach (var child in Panel.Children)
                 {
                     child.Scale = 0;
                 }
+                */
 
                 // layout the panel to slide out
-                var rect = new Rectangle(MainLayout.Width - Panel.Width, Panel.Y, Panel.Width, Panel.Height);
+                //var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height);
+                var rect2 = new Rectangle(-Panel.Width, MainLayout.Y, MainLayout.Width, MainLayout.Height);
+
+                //await Panel.LayoutTo(rect, 100, Easing.CubicIn);
+                await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
                 
-                await this.Panel.LayoutTo(rect, 250, Easing.CubicIn);
-                
-                // scale in the children for the panel
+                /* scale in the children for the panel
                 foreach (var child in Panel.Children)
                 {
                     await child.ScaleTo(1.2, 50, Easing.CubicIn);
                     await child.ScaleTo(1, 50, Easing.CubicOut);
                 }
+                */
             }
             else
             {
                 // layout the panel to slide in
-                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height);
-                await this.Panel.LayoutTo(rect, 200, Easing.CubicOut);
+                //var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height);
+                var rect2 = new Rectangle(0, 0, MainLayout.Width, MainLayout.Height);
 
-                // hide all children
+                //await Panel.LayoutTo(rect, 100, Easing.CubicOut);
+                await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
+
+                /* hide all children
                 foreach (var child in Panel.Children)
                 {
                     child.Scale = 0;
                 }
+                */
             }
+        }
+
+        class ShortCutListViewModel : INotifyPropertyChanged
+        {
+            public ObservableCollection<ShortCutListItem> MenuItems { get; set; }
+
+            public ShortCutListViewModel()
+            {
+                MenuItems = new ObservableCollection<ShortCutListItem>(new[]
+                {
+                    new ShortCutListItem { Id = 0, Title = "コピー" },
+                    new ShortCutListItem { Id = 1, Title = "カット" },
+                    new ShortCutListItem { Id = 2, Title = "ペースト" },
+                });
+            }
+
+            #region INotifyPropertyChanged Implementation
+            public event PropertyChangedEventHandler PropertyChanged;
+            void OnPropertyChanged([CallerMemberName] string propertyName = "")
+            {
+                if (PropertyChanged == null)
+                    return;
+
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            #endregion
         }
     }
 }

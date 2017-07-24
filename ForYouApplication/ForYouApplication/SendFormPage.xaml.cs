@@ -27,6 +27,10 @@ namespace ForYouApplication
         public SendFormPage()
         {
             InitializeComponent();
+
+            /* ナビゲーションバーを非表示にする */
+            NavigationPage.SetHasNavigationBar(this, false);
+
             DetailPage.Editor.TextChanged += EditorTextChanged;
         }
 
@@ -35,7 +39,7 @@ namespace ForYouApplication
             InitializeComponent();
             
             Client = new AsyncTcpClient(client);
-
+           
             /* リモートホスト名取得 */
             SetHostName();
             
@@ -47,7 +51,18 @@ namespace ForYouApplication
 
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
+            DetailPage.BackButton.Clicked += OnBackSpeace;
+            DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
+        }
+
+        /* 画面がアンロード(アプリ終了時)に呼ばれる */
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            /* リモートホストとの接続を切る */
+            Client.Disconnect();
         }
 
         /* リモートホストの名前を取得する */
@@ -58,6 +73,7 @@ namespace ForYouApplication
 
             Device.BeginInvokeOnMainThread(() =>
             {
+                /* Master部分のListView.Headerにリモートホスト名を設定 */
                 MasterPage.Header.Text = name.ToString();
             });
         }
@@ -71,20 +87,34 @@ namespace ForYouApplication
             /* 送信 */
             Client.Send(send);
         }
-
-        /* ショートカット選択ボタン押下時のイベント */
-        private void OnShortCut(object sender, EventArgs args)
-        {
-
-        }
         
+        /* ショートカットリストのアイテムが選択されたときのイベント */
+        private void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            /* 選択されたリストアイテム取得 */
+            ShortCutListItem item = e.SelectedItem as ShortCutListItem;
+
+            /* アイテムのフィールドIDを取得 */
+            int id = item?.Id ?? -1;
+
+            if (id == -1)
+            {
+                /* デバッグ用 */
+                System.Diagnostics.Debug.WriteLine("deg : ShortCutListSelected id = -1");
+                return;
+            }
+
+            DetailPage.ShortCutList.SelectedItem = null;
+        }
+
         /* Master内のアイテムが選択されたときのイベント */
         private async void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            /* 選択されたメニューアイテム取得 */
-            var item = e.SelectedItem as SendFormMenuItem;
+            /* 選択されたリストアイテム取得 */
+            SendFormMenuItem item = e.SelectedItem as SendFormMenuItem;
+            
             /* アイテムのフィールドIDを取得 */
-            int id = item ?. Id ?? -1;
+            int id = item ?.Id ?? -1;
             
             if(id == -1)
             {
@@ -159,7 +189,7 @@ namespace ForYouApplication
             else
             {
                 /* Detailの画面切り替え */
-                var page = (Page)Activator.CreateInstance(item.TargetType);
+                Page page = (Page)Activator.CreateInstance(item.TargetType);
                 page.Title = item.Title;
                 Detail = new NavigationPage(new ITrackPad());
                 IsPresented = false;
@@ -198,54 +228,50 @@ namespace ForYouApplication
             await Task.Run(() =>
             {
                 /* 加工後の文字列とEditorを操作するための数値を取得 */
-                (int index, string send) process = SaveText == null ? 
+                (int index, string send) process = SaveText == null || SaveText == "" ? 
                                                    (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
 
+                string send = process.send;
+
                 /* リモートホストへ送信 */
-                Client.Send(process.send);
+                Client.Send(send);
                 
+                /* クライアントが変換を行った場合 */
                 if (process.index > -1)
                 {
-                    /* Editor内の文字列操作 */
+                    /* 保存する文字列を抽出 */
                     string save = text.Substring(0, process.index + 1);
+
+                    /* Editor.Textに残す文字を抽出 */
                     text = text.Substring(process.index + 1);
                 
                     Device.BeginInvokeOnMainThread(() =>
                     {
+                        /* Editor.Textを変更 */
                         DetailPage.Editor.Text = text;
                     });
                 
-                    /* ログに格納する */
+                    /* ログに保存する */
                     SendLog.Enqueue(save);
                 }
 
-                /* クライアントが改行した場合 
-                if (workText.IndexOf("\n") > -1)
+                /* クライアントが改行した場合 */
+                if (text.IndexOf("\n") > -1)
                 {
-                    /* Editor内に改行以外の文字があった場合 
-                    if (workText.Length > 1)
+                    /* 改行コード以外の文字がある場合 */
+                    if (text.Length > 1)
                     {
-                        int index = process.index;
-
-                        if (index > -1)
-                        {
-                            /* ログに残す文字抽出とEditor 
-                            string save = workText.Remove(index, process.length);
-
-                            /* Editorの文字操作 
-                            DetailPage.Editor.Text = workText;
-
-                            /* ログに格納する 
-                            SendLog.Enqueue(save);
-                        }
+                        /* ログに保存する */
+                        string save = text.Replace("\n", "");
+                        SendLog.Enqueue(save);
                     }
-                    else
+
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        /* Editorを空白にする 
+                        /* Editor.Textを空白にする */
                         DetailPage.Editor.Text = "";
-                    }
+                    });
                 }
-                */
 
                 /* 現在のEditorのテキストの内容を保存 */
                 SaveText = text;

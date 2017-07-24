@@ -7,6 +7,14 @@ namespace ForYouApplication
     {
         public static (int index, string send) SendContentDeicsion(string before, string after)
         {
+            /* 変更後の文字が改行だけだった場合は何もせず、返す */
+            if (after.Equals("\n"))
+            {
+                /* 加工 */
+                string send = TextJoin(after, null);
+                return (-1, send);
+            }
+
             /* 各文字列を一文字ずつに分割して配列に格納 */
             char[] befArr = before.ToCharArray();
             char[] aftArr = after.ToCharArray();
@@ -39,14 +47,14 @@ namespace ForYouApplication
             if (preIndex == lenMin)
             {
                 /* 変更後の文字数のほうが少なかった場合、バックスペースをされたと判定する */
-                if (lenMin == aftLen)
+                if (befLen > aftLen)
                 {
                     /* 加工 */
                     result = TextJoin(null, TagConstants.BACK.GetConstants(), "1");
                     return (-1, result);
                 }
                 /* 変更後の文字数のほうが多かった場合、入力がされたと判定する */
-                else if (lenMin == befLen)
+                else if (befLen < aftLen)
                 {
                     /* 加工 */
                     result = TextJoin(after.Substring(lenMin), null);
@@ -77,13 +85,16 @@ namespace ForYouApplication
                 }
             }
 
+            /* リモートホストでバックスペースを押す回数 */
+            string back;
+
             /* 文字列の一部分が削除されたと判定 */
             if (preIndex > behiIndex - Math.Min(diff.be, diff.af))
             {
+                back = Math.Max(diff.be, diff.af).ToString();
+
                 /* 加工 */
-                result = TextJoin(null, TagConstants.DELETE.GetConstants(),
-                                    Math.Max(diff.be, diff.af).ToString(),
-                                        preIndex.ToString());
+                result = TextJoin(null, TagConstants.DELETE.GetConstants(), back, preIndex.ToString());
                 return (-1, result);
             }
 
@@ -92,13 +103,16 @@ namespace ForYouApplication
             /* 変換後の文字列の本当の要素番号 */
             int index = behiIndex - diff.af;
 
+            /* リモートホストでカーソルを動かす回数 */
+            string move = behiIndex == max - 1 ? "0" : (befLen - (behiIndex - diff.be + 1)).ToString();
+            
+            back = (behiIndex - preIndex - diff.be + 1).ToString();
+
             /* 変換した箇所を取り出す */
             string conv = after.Substring(preIndex, behiIndex - preIndex - diff.af + 1);
 
             /* 加工 */
-            result = TextJoin(null, TagConstants.CONV.GetConstants(),
-                                behiIndex == max - 1 ? "0" : (befLen - (behiIndex - diff.be + 1)).ToString(),
-                                    (behiIndex - preIndex - diff.be + 1).ToString(), conv);
+            result = TextJoin(null, TagConstants.CONV.GetConstants(), move, back, conv);
             
             return (index, result);
         }

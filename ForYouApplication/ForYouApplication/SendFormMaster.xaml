@@ -31,15 +31,6 @@
               Style="{DynamicResource SubtitleStyle}"
               FontSize="16"/>
         </Grid>
-        <!--
-        <StackLayout>
-          <Label
-            x:Name="ListHeader"
-            Text="AppNameと接続中…"
-            Style="{DynamicResource SubtitleStyle}"
-            FontSize="20"/>
-          <Button Text="Button"/>
-        </StackLayout>-->
       </ListView.Header>
       <ListView.ItemTemplate>
         <DataTemplate>

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ForYouApplication.SendFormDetail"
+             x:Name="DetailContent"
              Title="Detail">
     <RelativeLayout HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
@@ -10,18 +11,23 @@
         <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
         -->
 
-        <Editor x:Name="SendText"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"/>
+        <StackLayout x:Name="SendItems" 
+                     Orientation="Horizontal"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="EndAndExpand">
+            <Editor x:Name="SendText"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"/>
 
-        <StackLayout >
-            <Button x:Name="Back" 
+            <StackLayout>
+                <Button x:Name="Back" 
                     Text="Back"
-                    VerticalOptions="End"
                     Margin="0"/>
-            <Button x:Name="ShortCut"
+                <Button x:Name="ShortCut"
                     Text="SH"
-                    VerticalOptions="EndAndExpand"/>
+                    VerticalOptions="EndAndExpand"
+                    HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
         </StackLayout>
     </RelativeLayout>
 </ContentPage>
