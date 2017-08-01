@@ -38,6 +38,8 @@ namespace ForYouApplication
         {
             InitializeComponent();
 
+            System.Diagnostics.Debug.WriteLine("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
+
 
             Client = new AsyncTcpClient(client);
 
@@ -52,9 +54,12 @@ namespace ForYouApplication
 
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
+
             DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
 
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
+
+
 
             TapGestureRecognizer ges = new TapGestureRecognizer();
             ges.Tapped += (s, e) => OnLabelClicked(s, e);
@@ -78,6 +83,7 @@ namespace ForYouApplication
         /* リモートホストの名前を取得する */
         private async void SetHostName()
         {
+
             StringBuilder name = new StringBuilder(await Client.GetHostName());
             name.Append(" と接続中...");
 
@@ -136,47 +142,61 @@ namespace ForYouApplication
                 return;
 
             }
-            /* ペーストを選択した場合 */
-            if (id == 4)
+            /* こぴーを選択した場合 */
+            if (id == 10)
             {
                 Client.Send(TagConstants.COPY.GetConstants());
 
             }
-            else if (id == 3)
-            {
-                Client.Send(TagConstants.PASTE.GetConstants());
-            }
             /* カットを選択した場合 */
-            else if (id == 2)
+            else if (id == 11)
             {
                 Client.Send(TagConstants.CUT.GetConstants());
             }
-            /* コピーを選択した場合 */
-            else if (id == 1)
+            /* pasteを選択した場合 */
+            else if (id == 12)
             {
-
-
-                Client.Send(TagConstants.COPY.GetConstants());
-
-
+                Client.Send(TagConstants.PASTE.GetConstants());
             }
-            /* 切断を選択した場合*/
-            else if (id == 0)
+            /* 過去を選択した場合 */
+            else if (id == 13)
             {
-                /* アラート表示 */
-                bool result = await DisplayAlert("確認", "本当に切断しますか?", "OK", "Cancel");
-
-                /* OKを選択したとき */
-                if (result)
-                {
-                    /* リモートホストに切断要求をして、画面遷移 */
-                    Client.Send(TagConstants.END.GetConstants());
-                    await Navigation.PopAsync();
-                }
+                Client.Send("<BEF>");
             }
-            else
+            /* 未来を選択した場合 */
+            else if (id == 14)
             {
-
+                Client.Send("<AFT>");
+            }
+            /* 検索を選択した場合 */
+            else if (id == 15)
+            {
+                Client.Send("<SEA>");
+            }
+            /* 開くを選択した場合 */
+            else if (id == 16)
+            {
+                Client.Send("<OPN>");
+            }
+            /* 新規を選択7した場合 */
+            else if (id == 17)
+            {
+                Client.Send("<NEW>");
+            }
+            /* 名前を付けて保存を選択した場合 */
+            else if (id == 18)
+            {
+                Client.Send("<NSA>");
+            }
+            /* 上書きを選択した場合 */
+            else if (id == 19)
+            {
+                Client.Send("<SAV>");
+            }
+            /* 全選択を選択した場合 */
+            else if (id == 20)
+            {
+                Client.Send("<ALL>");
             }
 
             MasterPage.ListView.SelectedItem = null;

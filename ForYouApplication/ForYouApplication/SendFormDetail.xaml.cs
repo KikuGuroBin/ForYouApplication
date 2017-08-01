@@ -83,6 +83,38 @@ namespace ForYouApplication
                 SendItems.HeightRequest = height - 70;
 
                 FirstOrder = false;
+                double a = width / 5;
+
+                Brank_1.WidthRequest = a;
+                UpLabel.WidthRequest = a;
+                Brank_2.WidthRequest = a;
+                BackLabel.WidthRequest = a;
+                Brank_3.WidthRequest = a;
+
+                LeftLabel.WidthRequest = a;
+                DownLabel.WidthRequest = a;
+                RightLabel.WidthRequest = a;
+                ShotcutLabel.WidthRequest = a;
+                Brank_4.WidthRequest = a;
+
+                Brank_1.HeightRequest = a;
+                UpLabel.HeightRequest = a;
+                Brank_2.HeightRequest = a;
+                BackLabel.HeightRequest = a;
+                Brank_3.HeightRequest = a;
+
+                LeftLabel.HeightRequest = a;
+                DownLabel.HeightRequest = a;
+                RightLabel.HeightRequest = a;
+                ShotcutLabel.HeightRequest = a;
+                Brank_4.HeightRequest = a;
+
+                SendText.HeightRequest = a * 2;
+                SendText.WidthRequest = a * 2;
+
+                SendText.Focus();
+
+
             }
         }
 
@@ -190,16 +222,17 @@ namespace ForYouApplication
                 MenuItems = new ObservableCollection<ShortCutListItem>(new[]
                 {
                     
-                    new ShortCutListItem { Id = 0, Title = "コピー" },
-                    new ShortCutListItem { Id = 1, Title = "カット" },
-                    new ShortCutListItem { Id = 2, Title = "ペースト" },
-                    new ShortCutListItem { Id = 4, Title = "全範囲選択" },
-                    new ShortCutListItem { Id = 5, Title = "元に戻す" },
-                    new ShortCutListItem { Id = 6, Title = "" },
-                    new ShortCutListItem { Id = 7, Title = "上書き保存" },
-                    new ShortCutListItem { Id = 8, Title = "ペースト" },
-                    new ShortCutListItem { Id = 9, Title = "名前を付けて保存" },
-                    new ShortCutListItem { Id = 10, Title = "検索" },
+                    new ShortCutListItem { Id = 10, Title = "コピー" },
+                    new ShortCutListItem { Id = 11, Title = "カット" },
+                    new ShortCutListItem { Id = 12, Title = "ペースト" },
+                    new ShortCutListItem { Id = 20, Title = "全選択" },
+                    new ShortCutListItem { Id = 13, Title = "過去" },
+                    new ShortCutListItem { Id = 14, Title = "未来" },
+                    new ShortCutListItem { Id = 15, Title = "検索" },
+                    new ShortCutListItem { Id = 16, Title = "開く" },
+                    new ShortCutListItem { Id = 17, Title = "新規作成" },
+                    new ShortCutListItem { Id = 18, Title = "名前を付けて保存" },
+                    new ShortCutListItem { Id = 19, Title = "上書き保存" },
                 });
             }
 
@@ -219,5 +252,6 @@ namespace ForYouApplication
         {
             AnimatePanel();
         }
+
     }
 }

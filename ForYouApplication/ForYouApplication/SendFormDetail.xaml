@@ -31,44 +31,33 @@
                 <StackLayout
                     Orientation="Horizontal">
 
-                    <Label Text=""
-                        FontSize="40"
+                    <Label
+                        x:Name="Brank_1"
+                        Text=""
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label 
                         x:Name="UpLabel"
-                        Text="↑"
-                        FontSize="40"
+                        Text="↑↻"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label Text=""
-                        FontSize="40"
+                        x:Name="Brank_2"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label
                         x:Name="BackLabel"
                         Text="Back"
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label Text=""
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        x:Name="Brank_3">
                     </Label>
                 </StackLayout>
                 <StackLayout
@@ -76,38 +65,26 @@
                     <Label
                         x:Name="LeftLabel"
                         Text="←"
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label
                         x:Name="DownLabel"
                         Text="↓"
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label
                         x:Name="RightLabel"
                         Text="→"
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
                     <Label
                         x:Name="ShotcutLabel"
                         Text="SH"
-                        FontSize="40"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
 
                         <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Shbutton"/>
@@ -115,11 +92,9 @@
 
                     </Label>
                     <Label Text=""
-                        FontSize="40"
+                        x:Name="Brank_4"
                         HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        HeightRequest="50"
-                        WidthRequest="55">
+                        VerticalTextAlignment="Center">
                     </Label>
 
                 </StackLayout>

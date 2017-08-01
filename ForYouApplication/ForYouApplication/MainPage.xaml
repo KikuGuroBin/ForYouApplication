@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:ForYouApplication"
              x:Class="ForYouApplication.MainPage">
 
-    <StackLayout>
+    <StackLayout
+               BackgroundColor="#2296f4"
+        >
         <Label Text="NETMODE ：実装済み"
                FontSize="Large"
                HorizontalTextAlignment="Center"
@@ -15,11 +17,6 @@
                 <TapGestureRecognizer Tapped="QR_taped"/>
             </Label.GestureRecognizers>
         </Label>
-        <Button 
-            Text="f;aosdkfo;adskfo;"
-            Clicked="Button_Clicked"
-            />
-
         <Label Text="USBMODE　：実装予定"
                FontSize="Large"
                
