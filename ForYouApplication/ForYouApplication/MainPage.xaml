@@ -5,27 +5,42 @@
              x:Class="ForYouApplication.MainPage">
 
     <StackLayout>
-        <Label
-            x:Name="Label1"
-            Text="Welcome to ForYouApplication!" 
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="NETMODE ：実装済み"
+               FontSize="Large"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               HeightRequest="125"
+               BackgroundColor="#2296f4">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="QR_taped"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Button 
+            Text="f;aosdkfo;adskfo;"
+            Clicked="Button_Clicked"
+            />
 
-        <Button
-            x:Name="Button1"
-            Text="BUTTON"
-            Clicked="OnClick"/>
-
-        <Button
-            x:Name="Intent"
-            Text="Intent"
-            BorderColor="AliceBlue"
-            BorderRadius="15"
-            Clicked="OnClick"/>
-
-        <Button
-            x:Name="ScanButton"
-            Text="QRScan"
-            Clicked="ScanButtonClick"/>
+        <Label Text="USBMODE　：実装予定"
+               FontSize="Large"
+               
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               VerticalOptions="FillAndExpand"
+               BackgroundColor="Aqua">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Button_taped"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Text="Intent　：デバッグ用"
+               FontSize="Large" 
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               HeightRequest="175"
+               BackgroundColor="#2296f4">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+        
     </StackLayout>
 </ContentPage>

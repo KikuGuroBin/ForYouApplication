@@ -11,23 +11,143 @@
         <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
         -->
 
+        
+        
         <StackLayout x:Name="SendItems" 
-                     Orientation="Horizontal"
+                     Orientation="Vertical"
                      VerticalOptions="FillAndExpand"
-                     HorizontalOptions="EndAndExpand">
-            <Editor x:Name="SendText"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
-
-            <StackLayout>
-                <Button x:Name="Back" 
-                    Text="Back"
-                    Margin="0"/>
-                <Button x:Name="ShortCut"
-                    Text="SH"
-                    VerticalOptions="EndAndExpand"
-                    HorizontalOptions="EndAndExpand"/>
+                     HorizontalOptions="FillAndExpand">
+            <StackLayout
+                x:Name="EditLay">
+                <Editor x:Name="SendText"
+                    VerticalOptions="Fill"
+                    />
             </StackLayout>
+
+
+            <StackLayout
+                Orientation="Vertical">
+
+                <StackLayout
+                    Orientation="Horizontal">
+
+                    <Label Text=""
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label 
+                        x:Name="UpLabel"
+                        Text="↑"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label Text=""
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label
+                        x:Name="BackLabel"
+                        Text="Back"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label Text=""
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                </StackLayout>
+                <StackLayout
+                    Orientation="Horizontal">
+                    <Label
+                        x:Name="LeftLabel"
+                        Text="←"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label
+                        x:Name="DownLabel"
+                        Text="↓"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label
+                        x:Name="RightLabel"
+                        Text="→"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+                    <Label
+                        x:Name="ShotcutLabel"
+                        Text="SH"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+
+                        <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Shbutton"/>
+                        </Label.GestureRecognizers>
+
+                    </Label>
+                    <Label Text=""
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        HeightRequest="50"
+                        WidthRequest="55">
+                    </Label>
+
+                </StackLayout>
+
+            </StackLayout>
+        </StackLayout>
+        
+        
+        
+        
+        <StackLayout x:Name="SidePane">
+            <ListView x:Name="ll9"
+              SeparatorVisibility="Default"
+              HasUnevenRows="true"
+              ItemsSource="{Binding MenuItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="7,7" HorizontalOptions="FillAndExpand">
+                                <Label VerticalOptions="FillAndExpand" 
+                                 VerticalTextAlignment="Center" 
+                                 Text="{Binding Title}" 
+                                 FontSize="18"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </RelativeLayout>
 </ContentPage>

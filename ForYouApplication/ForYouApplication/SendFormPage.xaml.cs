@@ -37,12 +37,13 @@ namespace ForYouApplication
         public SendFormPage(TcpClient client)
         {
             InitializeComponent();
-            
+
+
             Client = new AsyncTcpClient(client);
-           
+
             /* リモートホスト名取得 */
             SetHostName();
-            
+
             /* 受信待ち開始 */
             Client.Receive();
 
@@ -51,9 +52,18 @@ namespace ForYouApplication
 
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
-            DetailPage.BackButton.Clicked += OnBackSpeace;
             DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
+
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
+
+            TapGestureRecognizer ges = new TapGestureRecognizer();
+            ges.Tapped += (s, e) => OnLabelClicked(s, e);
+            DetailPage.Uplabel1.GestureRecognizers.Add(ges);
+            DetailPage.Backlabel1.GestureRecognizers.Add(ges);
+            DetailPage.Leftlabel1.GestureRecognizers.Add(ges);
+            DetailPage.Rightlabel1.GestureRecognizers.Add(ges);
+            DetailPage.Downlabel1.GestureRecognizers.Add(ges);
+
         }
 
         /* 画面がアンロード(アプリ終了時)に呼ばれる */
@@ -62,7 +72,7 @@ namespace ForYouApplication
             base.OnDisappearing();
 
             /* リモートホストとの接続を切る */
-            Client.Disconnect();
+            //   Client.Disconnect();
         }
 
         /* リモートホストの名前を取得する */
@@ -78,19 +88,43 @@ namespace ForYouApplication
             });
         }
 
-        /* 自作バックスペース押下時のイベント */
-        private void OnBackSpeace(object sender, EventArgs args)
+        private void OnLabelClicked(object sender, EventArgs e)
         {
-            /* リモートホストが処理できる形式に加工 */
-            string send = TextProcess.TextJoin(null, TagConstants.BACK.GetConstants(), "1");
-            
-            /* 送信 */
-            Client.Send(send);
+            var str = ((Label)sender).Text;
+            DisplayAlert("Tapped", str + " is Tapped", "OK");
+
+            if (sender.Equals(DetailPage.Uplabel1))
+            {
+                Client.Send("<UPP>");
+            }
+            else if (sender.Equals(DetailPage.Backlabel1))
+            {
+                Client.Send("<BAC>");
+            }
+            else if (sender.Equals(DetailPage.Rightlabel1))
+            {
+                Client.Send("<RIG>");
+            }
+            else if (sender.Equals(DetailPage.Downlabel1))
+            {
+                Client.Send("<DOW>");
+            }
+            else if (sender.Equals(DetailPage.Leftlabel1))
+            {
+                Client.Send("<LEF>");
+            }
+
+
+
+
+
+
         }
-        
+
         /* ショートカットリストのアイテムが選択されたときのイベント */
-        private void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("dasfuigadsfgusidhfudhfaoidjfiodhgouahduohgfohufihreuhuirhuihruifhruifhahgushguerhuigrhofheruofhouegherui");
             /* 選択されたリストアイテム取得 */
             ShortCutListItem item = e.SelectedItem as ShortCutListItem;
 
@@ -99,10 +133,53 @@ namespace ForYouApplication
 
             if (id == -1)
             {
-                /* デバッグ用 */
-                System.Diagnostics.Debug.WriteLine("deg : ShortCutListSelected id = -1");
                 return;
+
             }
+            /* ペーストを選択した場合 */
+            if (id == 4)
+            {
+                Client.Send(TagConstants.COPY.GetConstants());
+
+            }
+            else if (id == 3)
+            {
+                Client.Send(TagConstants.PASTE.GetConstants());
+            }
+            /* カットを選択した場合 */
+            else if (id == 2)
+            {
+                Client.Send(TagConstants.CUT.GetConstants());
+            }
+            /* コピーを選択した場合 */
+            else if (id == 1)
+            {
+
+
+                Client.Send(TagConstants.COPY.GetConstants());
+
+
+            }
+            /* 切断を選択した場合*/
+            else if (id == 0)
+            {
+                /* アラート表示 */
+                bool result = await DisplayAlert("確認", "本当に切断しますか?", "OK", "Cancel");
+
+                /* OKを選択したとき */
+                if (result)
+                {
+                    /* リモートホストに切断要求をして、画面遷移 */
+                    Client.Send(TagConstants.END.GetConstants());
+                    await Navigation.PopAsync();
+                }
+            }
+            else
+            {
+
+            }
+
+            MasterPage.ListView.SelectedItem = null;
 
             DetailPage.ShortCutList.SelectedItem = null;
         }
@@ -112,15 +189,15 @@ namespace ForYouApplication
         {
             /* 選択されたリストアイテム取得 */
             SendFormMenuItem item = e.SelectedItem as SendFormMenuItem;
-            
+
             /* アイテムのフィールドIDを取得 */
-            int id = item ?.Id ?? -1;
-            
-            if(id == -1)
+            int id = item?.Id ?? -1;
+
+            if (id == -1)
             {
                 return;
             }
-            
+
             /* ショートカットキーを選択した場合 */
             if (id == 4)
             {
@@ -228,14 +305,14 @@ namespace ForYouApplication
             await Task.Run(() =>
             {
                 /* 加工後の文字列とEditorを操作するための数値を取得 */
-                (int index, string send) process = SaveText == null || SaveText == "" ? 
+                (int index, string send) process = SaveText == null || SaveText == "" ?
                                                    (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
 
                 string send = process.send;
 
                 /* リモートホストへ送信 */
                 Client.Send(send);
-                
+
                 /* クライアントが変換を行った場合 */
                 if (process.index > -1)
                 {
@@ -244,13 +321,13 @@ namespace ForYouApplication
 
                     /* Editor.Textに残す文字を抽出 */
                     text = text.Substring(process.index + 1);
-                
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         /* Editor.Textを変更 */
                         DetailPage.Editor.Text = text;
                     });
-                
+
                     /* ログに保存する */
                     SendLog.Enqueue(save);
                 }
@@ -282,3 +359,4 @@ namespace ForYouApplication
         }
     }
 }
+

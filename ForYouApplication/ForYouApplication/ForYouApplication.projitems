@@ -14,6 +14,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cr_scam.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IAlertDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShortCutListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TitleCall.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">

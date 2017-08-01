@@ -4,6 +4,7 @@ using Android.OS;
 using ZXing.Net.Mobile.Android;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Android.Views;
 
 namespace ForYouApplication.Droid
 {
@@ -23,13 +24,17 @@ namespace ForYouApplication.Droid
                 var statusBarHeightInfo = typeof(FormsAppCompatActivity).GetField("_statusBarHeight", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                 statusBarHeightInfo.SetValue(this, 0);
                 Window.SetStatusBarColor(new Android.Graphics.Color(18, 52, 86, 255));
+
+                this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+//                this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+
             }
 
             global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new App ());
 
             App.Current.On<Xamarin.Forms.PlatformConfiguration.Android>()
-                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
         }
 
         /* Android6.0以上の端末用のランタイムパーミッションの設定 */
