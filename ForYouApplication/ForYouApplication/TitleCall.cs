@@ -14,29 +14,45 @@ namespace ForYouApplication
     public class TitleCall : ContentPage
     {
         Image iconImage;
+        Image titleImage;
+        double a;
 
         public TitleCall()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-
+            a =this.Width;
             var abs = new AbsoluteLayout();
+
+            titleImage = new Image
+            {
+                Source = "titlessss.png",
+                WidthRequest = a
+            };
 
             iconImage = new Image
             {
-                Source = "rrrrr.png",
+                Source = "title.png",
                 WidthRequest = 100,
                 HeightRequest = 100
             };
+
             AbsoluteLayout.SetLayoutFlags(iconImage,
                 AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(iconImage,
                 new Rectangle(0.5, 0.5, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+            AbsoluteLayout.SetLayoutFlags(titleImage,
+                AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(titleImage,
+                new Rectangle(0.5, 0.7, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
+            abs.Children.Add(titleImage);
             abs.Children.Add(iconImage);
 
             this.BackgroundColor = Color.FromHex("#2296f4");
             this.Content = abs;
         }
+
+        public LayoutOptions FillAndExpand { get; private set; }
 
         protected override async void OnAppearing()
         {

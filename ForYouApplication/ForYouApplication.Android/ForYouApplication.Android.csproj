@@ -147,9 +147,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Twitter.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\menu\navigation_menu.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -162,13 +159,13 @@
     <AndroidResource Include="Resources\Drawable\ssssss.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\rrrr.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Drawable\rrrrr.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\rrrrrr.png" />
+    <AndroidResource Include="Resources\Drawable\titlessss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\title.png" />
   </ItemGroup>
   <Import Project="..\ForYouApplication\ForYouApplication.projitems" Label="Shared" Condition="Exists('..\ForYouApplication\ForYouApplication.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

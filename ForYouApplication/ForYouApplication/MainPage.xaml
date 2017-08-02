@@ -7,8 +7,9 @@
     <StackLayout
                BackgroundColor="#2296f4"
         >
+        
         <Label Text="NETMODE ：実装済み"
-               FontSize="Large"
+               FontSize="30"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
                HeightRequest="125"
@@ -19,6 +20,7 @@
         </Label>
         <Label Text="USBMODE　：実装予定"
                FontSize="Large"
+               TextColor="Red"
                
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
@@ -29,6 +31,7 @@
             </Label.GestureRecognizers>
         </Label>
         <Label Text="Intent　：デバッグ用"
+               TextColor="Red"
                FontSize="Large" 
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"

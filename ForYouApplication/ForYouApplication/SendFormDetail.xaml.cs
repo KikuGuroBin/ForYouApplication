@@ -33,8 +33,10 @@ namespace ForYouApplication
                 _PanelShowing = value;
             }
         }
-        
-        
+
+        double a;
+
+
 
         public ListView MenuItemsListView { get; private set; }
 
@@ -83,7 +85,8 @@ namespace ForYouApplication
                 SendItems.HeightRequest = height - 70;
 
                 FirstOrder = false;
-                double a = width / 5;
+                a = width / 5;
+                double b = a / 3 * 2;
 
                 Brank_1.WidthRequest = a;
                 UpLabel.WidthRequest = a;
@@ -97,20 +100,20 @@ namespace ForYouApplication
                 ShotcutLabel.WidthRequest = a;
                 Brank_4.WidthRequest = a;
 
-                Brank_1.HeightRequest = a;
-                UpLabel.HeightRequest = a;
-                Brank_2.HeightRequest = a;
-                BackLabel.HeightRequest = a;
-                Brank_3.HeightRequest = a;
+                Brank_1.HeightRequest = b;
+                UpLabel.HeightRequest = b;
+                Brank_2.HeightRequest = b;
+                BackLabel.HeightRequest = b;
+                Brank_3.HeightRequest = b;
 
-                LeftLabel.HeightRequest = a;
-                DownLabel.HeightRequest = a;
-                RightLabel.HeightRequest = a;
-                ShotcutLabel.HeightRequest = a;
-                Brank_4.HeightRequest = a;
+                LeftLabel.HeightRequest = b;
+                DownLabel.HeightRequest = b;
+                RightLabel.HeightRequest = b;
+                ShotcutLabel.HeightRequest = b;
+                Brank_4.HeightRequest = b;
 
                 SendText.HeightRequest = a * 2;
-                SendText.WidthRequest = a * 2;
+                SendText.WidthRequest = b * 2;
 
                 SendText.Focus();
 
@@ -144,21 +147,12 @@ namespace ForYouApplication
                 Panel = new StackLayout
                 {
                     Children = {
-                        /*
-                        new Label {
-                            Text = "Options",
-                            HorizontalOptions = LayoutOptions.Start,
-                            VerticalOptions = LayoutOptions.Start,
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            TextColor = Color.White
-                        },
-                        */
                         ShortCutList,
                     },
                     Padding = 15,
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.EndAndExpand,
-                    BackgroundColor = Color.WhiteSmoke
+                    BackgroundColor = Color.Blue,
                 };
 
                 
@@ -181,11 +175,11 @@ namespace ForYouApplication
                 
 
                 // layout the panel to slide out
-                var rect = new Rectangle(MainLayout.Width - Panel.Width, Panel.Y, Panel.Width, Panel.Height/2);
-                var rect2 = new Rectangle(-Panel.Width, MainLayout.Y, MainLayout.Width, MainLayout.Height);
+                var rect = new Rectangle(MainLayout.Width - Panel.Width + 30, Panel.Y, Panel.Width, Panel.Height/2);
+                var rect2 = new Rectangle(-Panel.Width + 30, MainLayout.Y, MainLayout.Width, MainLayout.Height);
 
                 await Panel.LayoutTo(rect, 100, Easing.CubicIn);
-               // await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
+                //await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
                 
                 /* scale in the children for the panel*/
                 foreach (var child in Panel.Children)
@@ -202,7 +196,7 @@ namespace ForYouApplication
                 var rect2 = new Rectangle(0, 0, MainLayout.Width, MainLayout.Height);
 
                 await Panel.LayoutTo(rect, 100, Easing.CubicOut);
-                await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
+                //await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
 
                 /* hide all children
                 foreach (var child in Panel.Children)
@@ -230,7 +224,7 @@ namespace ForYouApplication
                     new ShortCutListItem { Id = 14, Title = "未来" },
                     new ShortCutListItem { Id = 15, Title = "検索" },
                     new ShortCutListItem { Id = 16, Title = "開く" },
-                    new ShortCutListItem { Id = 17, Title = "新規作成" },
+                    new ShortCutListItem { Id = 17, Title = "ブランク" },
                     new ShortCutListItem { Id = 18, Title = "名前を付けて保存" },
                     new ShortCutListItem { Id = 19, Title = "上書き保存" },
                 });

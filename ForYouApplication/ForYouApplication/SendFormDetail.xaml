@@ -105,10 +105,10 @@
         
         
         
-        <StackLayout x:Name="SidePane">
+        <StackLayout x:Name="SidePane"
+                     BackgroundColor="AliceBlue">
             <ListView x:Name="ll9"
               SeparatorVisibility="Default"
-              HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

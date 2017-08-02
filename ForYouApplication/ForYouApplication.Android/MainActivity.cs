@@ -8,7 +8,7 @@ using Android.Views;
 
 namespace ForYouApplication.Droid
 {
-	[Activity (Label = "ふりっく", Icon = "@drawable/icon", Theme="@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity (Label = "PC FLICK", Icon = "@drawable/title", Theme="@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : FormsAppCompatActivity
 	{
         protected override void OnCreate (Bundle bundle)
@@ -27,7 +27,6 @@ namespace ForYouApplication.Droid
 
                 this.Window.AddFlags(WindowManagerFlags.Fullscreen);
 //                this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
-
             }
 
             global::Xamarin.Forms.Forms.Init (this, bundle);

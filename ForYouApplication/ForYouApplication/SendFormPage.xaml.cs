@@ -38,9 +38,6 @@ namespace ForYouApplication
         {
             InitializeComponent();
 
-            System.Diagnostics.Debug.WriteLine("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
-
-
             Client = new AsyncTcpClient(client);
 
             /* リモートホスト名取得 */
@@ -96,9 +93,6 @@ namespace ForYouApplication
 
         private void OnLabelClicked(object sender, EventArgs e)
         {
-            var str = ((Label)sender).Text;
-            DisplayAlert("Tapped", str + " is Tapped", "OK");
-
             if (sender.Equals(DetailPage.Uplabel1))
             {
                 Client.Send("<UPP>");
@@ -119,16 +113,10 @@ namespace ForYouApplication
             {
                 Client.Send("<LEF>");
             }
-
-
-
-
-
-
         }
 
         /* ショートカットリストのアイテムが選択されたときのイベント */
-        private async void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("dasfuigadsfgusidhfudhfaoidjfiodhgouahduohgfohufihreuhuirhuihruifhruifhahgushguerhuigrhofheruofhouegherui");
             /* 選択されたリストアイテム取得 */
@@ -181,7 +169,7 @@ namespace ForYouApplication
             /* 新規を選択7した場合 */
             else if (id == 17)
             {
-                Client.Send("<NEW>");
+                //Client.Send("<NEW>");
             }
             /* 名前を付けて保存を選択した場合 */
             else if (id == 18)
@@ -198,9 +186,7 @@ namespace ForYouApplication
             {
                 Client.Send("<ALL>");
             }
-
-            MasterPage.ListView.SelectedItem = null;
-
+            
             DetailPage.ShortCutList.SelectedItem = null;
         }
 
@@ -217,31 +203,9 @@ namespace ForYouApplication
             {
                 return;
             }
-
-            /* ショートカットキーを選択した場合 */
-            if (id == 4)
-            {
-                /* アラートシート表示 */
-                string result = await DisplayActionSheet("選択してください", "", "", "コピー", "ペースト", "カット");
-
-                if (result.Equals("コピー"))
-                {
-                    /* リモートホストに送信 */
-                    Client.Send(TagConstants.COPY.GetConstants());
-                }
-                else if (result.Equals("ペースト"))
-                {
-                    /* リモートホストに送信 */
-                    Client.Send(TagConstants.PASTE.GetConstants());
-                }
-                else if (result.Equals("カット"))
-                {
-                    /* リモートホストに送信 */
-                    Client.Send(TagConstants.CUT.GetConstants());
-                }
-            }
+            
             /* 送信ログを選択した場合 */
-            else if (id == 3)
+            if (id == 3)
             {
                 /* 蓄積した送信ログを配列に書き出す */
                 string[] log = SendLog.ToArray();
@@ -324,6 +288,7 @@ namespace ForYouApplication
 
             await Task.Run(() =>
             {
+                System.Diagnostics.Debug.WriteLine("deg : TextChange発生");
                 /* 加工後の文字列とEditorを操作するための数値を取得 */
                 (int index, string send) process = SaveText == null || SaveText == "" ?
                                                    (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
@@ -333,22 +298,22 @@ namespace ForYouApplication
                 /* リモートホストへ送信 */
                 Client.Send(send);
 
-                /* クライアントが変換を行った場合 */
+                /* クライアントが変換を行った場合 
                 if (process.index > -1)
                 {
-                    /* 保存する文字列を抽出 */
+                    /* 保存する文字列を抽出 
                     string save = text.Substring(0, process.index + 1);
 
-                    /* Editor.Textに残す文字を抽出 */
+                    /* Editor.Textに残す文字を抽出 
                     text = text.Substring(process.index + 1);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        /* Editor.Textを変更 */
+                        /* Editor.Text00更 
                         DetailPage.Editor.Text = text;
                     });
 
-                    /* ログに保存する */
+                    /* ログに保存する 
                     SendLog.Enqueue(save);
                 }
 
