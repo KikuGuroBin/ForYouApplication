@@ -49,11 +49,17 @@
                         VerticalTextAlignment="Center">
                     </Label>
                     <Label
-                        x:Name="BackLabel"
-                        Text="Back"
+                        x:Name="ShotcutLabel"
+                        Text="SH"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Shbutton"/>
+                        </Label.GestureRecognizers>
+
                     </Label>
+                   
                     <Label Text=""
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
@@ -81,15 +87,10 @@
                         VerticalTextAlignment="Center">
                     </Label>
                     <Label
-                        x:Name="ShotcutLabel"
-                        Text="SH"
+                        x:Name="BackLabel"
+                        Text="Back"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center">
-
-                        <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Shbutton"/>
-                        </Label.GestureRecognizers>
-
                     </Label>
                     <Label Text=""
                         x:Name="Brank_4"

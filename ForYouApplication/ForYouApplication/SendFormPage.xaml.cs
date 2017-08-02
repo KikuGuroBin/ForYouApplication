@@ -296,7 +296,15 @@ namespace ForYouApplication
                 string send = process.send;
 
                 /* リモートホストへ送信 */
-                Client.Send(send);
+                if (send=="\n")
+                {
+                    Client.Send("<ENT>");
+                }
+                else
+                {
+
+                    Client.Send(send);
+                }
 
                 /* クライアントが変換を行った場合 
                 if (process.index > -1)

@@ -7,17 +7,41 @@
     <StackLayout
                BackgroundColor="#2296f4"
         >
-        
-        <Label Text="NETMODE ：実装済み"
+        <Image 
+                Source="WM.jpg"
+                HeightRequest="125">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="QR_taped"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image 
+            Source="UM.jpg"
+            HeightRequest="125"
+         >
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Button_taped"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image Source="DM"
+               HeightRequest="125"
+            >
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <!--Label Text="NETMODE ：実装済み"
                FontSize="30"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
                HeightRequest="125"
                BackgroundColor="#2296f4">
+
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="QR_taped"/>
             </Label.GestureRecognizers>
-        </Label>
+        </>
         <Label Text="USBMODE　：実装予定"
                FontSize="Large"
                TextColor="Red"
@@ -40,7 +64,7 @@
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Label.GestureRecognizers>
-        </Label>
+        </Label>-->
         
     </StackLayout>
 </ContentPage>
