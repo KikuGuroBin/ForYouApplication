@@ -51,11 +51,10 @@ namespace ForYouApplication
 
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
-
             DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
-
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
             
+            /* タップイベントの設定 */
             TapGestureRecognizer ges = new TapGestureRecognizer();
             ges.Tapped += (s, e) => OnLabelClicked(s, e);
             DetailPage.Uplabel1.GestureRecognizers.Add(ges);
@@ -67,8 +66,6 @@ namespace ForYouApplication
             DetailPage.Tab.GestureRecognizers.Add(ges);
             DetailPage.ChangeTab.GestureRecognizers.Add(ges);
             DetailPage.Editor.GestureRecognizers.Add(ges);
-
-
         }
 
         /* 画面がアンロード(アプリ終了時)に呼ばれる */
@@ -83,8 +80,11 @@ namespace ForYouApplication
         /* リモートホストの名前を取得する */
         private async void SetHostName()
         {
-
-            StringBuilder name = new StringBuilder(await Client.GetHostName());
+            /* クライアント名取得 */
+            string host = await Client.GetHostName();
+            
+            /* 結合 */
+            StringBuilder name = new StringBuilder(host);
             name.Append(" と接続中...");
 
             Device.BeginInvokeOnMainThread(() =>
@@ -273,10 +273,12 @@ namespace ForYouApplication
                 /* リモートホストへ送信 */
                 if (send == "\n")
                 {
+                    /* 改行文字のみの入力の場合は改行用コマンドを送る */
                     Client.Send("<ENT>");
                 }
                 else
                 {
+                    /* それ以外は普通に送信する */
                     Client.Send(send);
                 }
 
@@ -326,4 +328,3 @@ namespace ForYouApplication
         }
     }
 }
-

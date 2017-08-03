@@ -107,6 +107,9 @@ namespace ForYouApplication
                 ShotcutLabel.WidthRequest = LabelWidth;
                 Enter.WidthRequest = LabelWidth;
 
+                Scroll.WidthRequest = width;
+                Scroll.HeightRequest = labelHeight;
+
                 /* ラベルの高さを設定 */
                 Shift.HeightRequest = labelHeight;
                 UpLabel.HeightRequest = labelHeight;
@@ -119,9 +122,12 @@ namespace ForYouApplication
                 ShotcutLabel.HeightRequest = labelHeight;
                 Enter.HeightRequest = labelHeight;
 
-                /* エディターの幅、高さを設定*/
+                /* エディターの幅、高さを設定
                 SendText.HeightRequest = LabelWidth * 2;
-                SendText.WidthRequest = labelHeight * 2;
+                SendText.WidthRequest = labelHeight * 1.5;
+                */
+                
+                EditLay.HeightRequest = labelHeight * 1.5;
 
                 /* エディターにフォーカスを合わせる */
                 SendText.Focus();
@@ -151,22 +157,6 @@ namespace ForYouApplication
                     return p.Height;
                 })
             );
-
-            if (Panel == null)
-            {
-                Panel = new StackLayout
-                {
-                    Children = {
-                        ShortCutList,
-                    },
-                    Padding = 15,
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    HorizontalOptions = LayoutOptions.EndAndExpand,
-                    BackgroundColor = Color.Blue,
-                };
-
-                
-            }
         }
 
         private async void AnimatePanel()
@@ -196,7 +186,6 @@ namespace ForYouApplication
                     await child.ScaleTo(1.2, 50, Easing.CubicIn);
                     await child.ScaleTo(1, 50, Easing.CubicOut);
                 }
-                
             }
             else
             {
@@ -213,6 +202,38 @@ namespace ForYouApplication
                     child.Scale = 0;
                 }
                 */
+            }
+        }
+
+        /* ショートカットラベルタップ用のイベント */
+        private void ShortCutTap(object sender, EventArgs args)
+        {
+            AnimatePanel();
+        }
+
+        /* シフトラベルタップ時のイベント */
+        private void ShiftTap(object sender, EventArgs args)
+        {
+            /* シフトモードOFF時には使用できるラベルの背景色を変える */
+            if (!ShiftFlag)
+            {
+                UpLabel.BackgroundColor = LightYellow;
+                DownLabel.BackgroundColor = LightYellow;
+                RightLabel.BackgroundColor = LightYellow;
+                LeftLabel.BackgroundColor = LightYellow;
+                Tab.BackgroundColor = LightYellow;
+
+                ShiftFlag = true;
+            }
+            else
+            {
+                UpLabel.BackgroundColor = Color.White;
+                DownLabel.BackgroundColor = Color.White;
+                RightLabel.BackgroundColor = Color.White;
+                LeftLabel.BackgroundColor = Color.White;
+                Tab.BackgroundColor = Color.White;
+
+                ShiftFlag = false;
             }
         }
 
@@ -249,36 +270,6 @@ namespace ForYouApplication
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
             #endregion
-        }
-
-        private void Shbutton(object sender, EventArgs args)
-        {
-            AnimatePanel();
-        }
-
-        /* シフトラベルタップ時のイベント */
-        private void ShiftTap(object sender, EventArgs args)
-        {
-            if (!ShiftFlag)
-            {
-                UpLabel.BackgroundColor = LightYellow;
-                DownLabel.BackgroundColor = LightYellow;
-                RightLabel.BackgroundColor = LightYellow;
-                LeftLabel.BackgroundColor = LightYellow;
-                Tab.BackgroundColor = LightYellow;
-
-                ShiftFlag = true;
-            }
-            else
-            {
-                UpLabel.BackgroundColor = Color.White;
-                DownLabel.BackgroundColor = Color.White;
-                RightLabel.BackgroundColor = Color.White;
-                LeftLabel.BackgroundColor = Color.White;
-                Tab.BackgroundColor = Color.White;
-
-                ShiftFlag = false;
-            }
         }
     }
 }

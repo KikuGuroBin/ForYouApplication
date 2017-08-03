@@ -18,7 +18,7 @@
             <StackLayout
                 x:Name="EditLay">
                 <Editor x:Name="SendText"
-                    VerticalOptions="Fill"
+                    VerticalOptions="FillAndExpand"
                     />
             </StackLayout>
             <StackLayout
@@ -48,7 +48,7 @@
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Shbutton"/>
+                            <TapGestureRecognizer Tapped="ShortCutTap"/>
                         </Label.GestureRecognizers>
                     </Label>
                     <Label x:Name="ChanTab" 
@@ -79,6 +79,7 @@
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
                 </StackLayout>
+                <!--
                 <StackLayout
                     Orientation="Horizontal">
                     <Label x:Name="Brank1"
@@ -101,7 +102,23 @@
                            Text="a"
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
-                </StackLayout>
+                </StackLayout> 
+                -->
+                <ScrollView x:Name="Scroll"
+                            Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Item1"/>
+                        <Label Text="Item2"/>
+                        <Label Text="Item3"/>
+                        <Label Text="Item4"/>
+                        <Label Text="Item5"/>
+                        <Label Text="Item6"/>
+                        <Label Text="Item7"/>
+                        <Label Text="Item8"/>
+                        <Label Text="Item9"/>
+                        <Label Text="Item10"/>
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
         </StackLayout>
         <StackLayout x:Name="SidePane"

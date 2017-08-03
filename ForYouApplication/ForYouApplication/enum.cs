@@ -25,11 +25,6 @@ namespace ForYouApplication
         END
     }
 
-    public enum IntegerConstants
-    {
-
-    }
-
     /* TagConstantsの拡張クラス */
     public static class TagConstantsEx
     {
