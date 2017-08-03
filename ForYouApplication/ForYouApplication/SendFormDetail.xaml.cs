@@ -17,7 +17,7 @@ namespace ForYouApplication
         /* OnSizeAllocated制御用 */
         private bool FirstOrder = true;
 
-        /* ---右からのショートカットメニュー用--- */
+        /* 右からのショートカットメニュー用 */
         public StackLayout Panel;
         public ListView ShortCutList;
         private double PanelWidth = -1;
@@ -34,20 +34,22 @@ namespace ForYouApplication
             }
         }
 
-        double a;
-
-
-
-        public ListView MenuItemsListView { get; private set; }
-
+        double LabelWidth;
+        
         /*ラベルたち*/
         public Label Uplabel1;
         public Label Backlabel1;
         public Label Leftlabel1;
         public Label Downlabel1;
         public Label Rightlabel1;
+        public Label Shift;
+        public Label Tab;
+        public Label ChangeTab;
+        public Label Enter;
 
-        /* ------------------------ */
+        public Color LightYellow = Color.FromRgb(0xFF, 0xEF, 0x85);
+
+        public bool ShiftFlag;
 
         public SendFormDetail()
         {
@@ -56,24 +58,28 @@ namespace ForYouApplication
             /* iOSだけ、上部に余白をとる */
             Padding = new Thickness(0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
 
+            /* アイテムをSendFormPageで参照できるようにメンバ変数に格納 */
             Editor = SendText;
-       
-
             Panel = SidePane;
-            CreatePanel();
-            BindingContext = new ShortCutListViewModel();
-            ShortCutList = ll9;
-
             Uplabel1 = UpLabel;
             Backlabel1 = BackLabel;
             Leftlabel1 = LeftLabel;
             Downlabel1 = DownLabel;
             Rightlabel1 = RightLabel;
+            Shift = Swift;
+            Tab = Tub; 
+            ChangeTab = ChanTab;
+            Enter = Ender;
 
-            
-            
+            /* シュートカットメニュー用パネルの設定 */
+            CreatePanel();
+
+            /* データバインディング */
+            BindingContext = new ShortCutListViewModel();
+            ShortCutList = ShortList;
         }
       
+        /* 画面サイズが変更されたときのイベント */
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
@@ -81,43 +87,47 @@ namespace ForYouApplication
             /* 初回だけ処理を行う */
             if (FirstOrder)
             {
+                /* メインのレイアウトの幅、高さを設定 */
                 SendItems.WidthRequest = width;
                 SendItems.HeightRequest = height - 70;
 
-                FirstOrder = false;
-                a = width / 5;
-                double b = a / 3 * 2;
+                /* ラベルなどに設定する幅、高さを求める */
+                LabelWidth = width / 5;
+                double labelHeight = LabelWidth / 3 * 2;
 
-                Brank_1.WidthRequest = a;
-                UpLabel.WidthRequest = a;
-                Brank_2.WidthRequest = a;
-                BackLabel.WidthRequest = a;
-                Brank_3.WidthRequest = a;
+                /* ラベルの幅を設定 */
+                Shift.WidthRequest = LabelWidth;
+                UpLabel.WidthRequest = LabelWidth;
+                Tab.WidthRequest = LabelWidth;
+                BackLabel.WidthRequest = LabelWidth;
+                ChangeTab.WidthRequest = LabelWidth;
+                LeftLabel.WidthRequest = LabelWidth;
+                DownLabel.WidthRequest = LabelWidth;
+                RightLabel.WidthRequest = LabelWidth;
+                ShotcutLabel.WidthRequest = LabelWidth;
+                Enter.WidthRequest = LabelWidth;
 
-                LeftLabel.WidthRequest = a;
-                DownLabel.WidthRequest = a;
-                RightLabel.WidthRequest = a;
-                ShotcutLabel.WidthRequest = a;
-                Brank_4.WidthRequest = a;
+                /* ラベルの高さを設定 */
+                Shift.HeightRequest = labelHeight;
+                UpLabel.HeightRequest = labelHeight;
+                Tab.HeightRequest = labelHeight;
+                BackLabel.HeightRequest = labelHeight;
+                ChangeTab.HeightRequest = labelHeight;
+                LeftLabel.HeightRequest = labelHeight;
+                DownLabel.HeightRequest = labelHeight;
+                RightLabel.HeightRequest = labelHeight;
+                ShotcutLabel.HeightRequest = labelHeight;
+                Enter.HeightRequest = labelHeight;
 
-                Brank_1.HeightRequest = b;
-                UpLabel.HeightRequest = b;
-                Brank_2.HeightRequest = b;
-                BackLabel.HeightRequest = b;
-                Brank_3.HeightRequest = b;
+                /* エディターの幅、高さを設定*/
+                SendText.HeightRequest = LabelWidth * 2;
+                SendText.WidthRequest = labelHeight * 2;
 
-                LeftLabel.HeightRequest = b;
-                DownLabel.HeightRequest = b;
-                RightLabel.HeightRequest = b;
-                ShotcutLabel.HeightRequest = b;
-                Brank_4.HeightRequest = b;
-
-                SendText.HeightRequest = a * 2;
-                SendText.WidthRequest = b * 2;
-
+                /* エディターにフォーカスを合わせる */
                 SendText.Focus();
 
-
+                /* 次回以降呼ばれないようにする */
+                FirstOrder = false;
             }
         }
 
@@ -173,14 +183,13 @@ namespace ForYouApplication
                     child.Scale = 0;
                 }
                 
-
                 // layout the panel to slide out
-                var rect = new Rectangle(MainLayout.Width - Panel.Width + 30, Panel.Y, Panel.Width, Panel.Height/2);
-                var rect2 = new Rectangle(-Panel.Width + 30, MainLayout.Y, MainLayout.Width, MainLayout.Height);
-
-                await Panel.LayoutTo(rect, 100, Easing.CubicIn);
-                //await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
+                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height / 2);
+                var rect2 = new Rectangle(-Panel.Width, MainLayout.Y, MainLayout.Width + Panel.Width, MainLayout.Height);
                 
+                await Panel.LayoutTo(rect, 100, Easing.CubicIn);
+                await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
+
                 /* scale in the children for the panel*/
                 foreach (var child in Panel.Children)
                 {
@@ -192,11 +201,11 @@ namespace ForYouApplication
             else
             {
                 // layout the panel to slide in
-                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height*2);
-                var rect2 = new Rectangle(0, 0, MainLayout.Width, MainLayout.Height);
+                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height * 2);
+                var rect2 = new Rectangle(0, 0, MainLayout.Width - Panel.Width, MainLayout.Height);
 
                 await Panel.LayoutTo(rect, 100, Easing.CubicOut);
-                //await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
+                await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
 
                 /* hide all children
                 foreach (var child in Panel.Children)
@@ -216,17 +225,17 @@ namespace ForYouApplication
                 MenuItems = new ObservableCollection<ShortCutListItem>(new[]
                 {
                     
-                    new ShortCutListItem { Id = 10, Title = "コピー" },
-                    new ShortCutListItem { Id = 11, Title = "カット" },
-                    new ShortCutListItem { Id = 12, Title = "ペースト" },
-                    new ShortCutListItem { Id = 20, Title = "全選択" },
-                    new ShortCutListItem { Id = 13, Title = "過去" },
-                    new ShortCutListItem { Id = 14, Title = "未来" },
-                    new ShortCutListItem { Id = 15, Title = "検索" },
-                    new ShortCutListItem { Id = 16, Title = "開く" },
-                    new ShortCutListItem { Id = 17, Title = "ブランク" },
-                    new ShortCutListItem { Id = 18, Title = "名前を付けて保存" },
-                    new ShortCutListItem { Id = 19, Title = "上書き保存" },
+                    new ShortCutListItem { Id = 10, Title = "コピー", Send = "<COP>" },
+                    new ShortCutListItem { Id = 11, Title = "カット", Send = "<CUT>" },
+                    new ShortCutListItem { Id = 12, Title = "ペースト", Send = "<PAS>" },
+                    new ShortCutListItem { Id = 20, Title = "全選択", Send = "<ALL>" },
+                    new ShortCutListItem { Id = 13, Title = "過去", Send = "<BEF>" },
+                    new ShortCutListItem { Id = 14, Title = "未来", Send = "<AFT>" },
+                    new ShortCutListItem { Id = 15, Title = "検索", Send = "<SEA>" },
+                    new ShortCutListItem { Id = 16, Title = "開く", Send = "<OPN>" },
+                    new ShortCutListItem { Id = -1, Title = "ブランク", Send = "<>" },
+                    new ShortCutListItem { Id = 18, Title = "名前を付けて保存", Send = "<NSA>" },
+                    new ShortCutListItem { Id = 19, Title = "上書き保存", Send = "<SAV>" },
                 });
             }
 
@@ -242,10 +251,34 @@ namespace ForYouApplication
             #endregion
         }
 
-        private void Shbutton(object sender, EventArgs e)
+        private void Shbutton(object sender, EventArgs args)
         {
             AnimatePanel();
         }
 
+        /* シフトラベルタップ時のイベント */
+        private void ShiftTap(object sender, EventArgs args)
+        {
+            if (!ShiftFlag)
+            {
+                UpLabel.BackgroundColor = LightYellow;
+                DownLabel.BackgroundColor = LightYellow;
+                RightLabel.BackgroundColor = LightYellow;
+                LeftLabel.BackgroundColor = LightYellow;
+                Tab.BackgroundColor = LightYellow;
+
+                ShiftFlag = true;
+            }
+            else
+            {
+                UpLabel.BackgroundColor = Color.White;
+                DownLabel.BackgroundColor = Color.White;
+                RightLabel.BackgroundColor = Color.White;
+                LeftLabel.BackgroundColor = Color.White;
+                Tab.BackgroundColor = Color.White;
+
+                ShiftFlag = false;
+            }
+        }
     }
 }

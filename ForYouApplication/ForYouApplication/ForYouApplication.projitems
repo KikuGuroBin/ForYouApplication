@@ -14,8 +14,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Cr_scam.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IAlertDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITrackPad.xaml.cs">
@@ -25,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Page.xaml.cs">
       <DependentUpon>Page.xaml</DependentUpon>

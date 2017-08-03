@@ -11,8 +11,6 @@
         <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
         -->
 
-        
-        
         <StackLayout x:Name="SendItems" 
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand"
@@ -23,102 +21,104 @@
                     VerticalOptions="Fill"
                     />
             </StackLayout>
-
-
             <StackLayout
                 Orientation="Vertical">
 
                 <StackLayout
                     Orientation="Horizontal">
 
-                    <Label
-                        x:Name="Brank_1"
-                        Text=""
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
+                    <Label x:Name="Swift"
+                           Text="Shift"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShiftTap"/>
+                        </Label.GestureRecognizers>
                     </Label>
-                    <Label 
-                        x:Name="UpLabel"
-                        Text="↑↻"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label Text=""
-                        x:Name="Brank_2"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label
-                        x:Name="ShotcutLabel"
-                        Text="SH"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-
+                    <Label x:Name="UpLabel"
+                           Text="↑"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Tub" 
+                           Text="Tab"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="ShotcutLabel"
+                           Text="SH"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Shbutton"/>
                         </Label.GestureRecognizers>
-
                     </Label>
-                   
-                    <Label Text=""
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        x:Name="Brank_3">
-                    </Label>
+                    <Label x:Name="ChanTab" 
+                           Text="ChanTab"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
                 </StackLayout>
                 <StackLayout
                     Orientation="Horizontal">
-                    <Label
-                        x:Name="LeftLabel"
-                        Text="←"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label
-                        x:Name="DownLabel"
-                        Text="↓"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label
-                        x:Name="RightLabel"
-                        Text="→"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label
-                        x:Name="BackLabel"
-                        Text="Back"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-                    <Label Text=""
-                        x:Name="Brank_4"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center">
-                    </Label>
-
+                    <Label x:Name="LeftLabel"
+                           Text="←"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="DownLabel"
+                           Text="↓"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="RightLabel"
+                           Text="→"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="BackLabel"
+                           Text="Back"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Ender"
+                           Text="Enter"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
                 </StackLayout>
-
+                <StackLayout
+                    Orientation="Horizontal">
+                    <Label x:Name="Brank1"
+                           Text="←"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Brank2"
+                           Text="↓"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Brank3"
+                           Text="→"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Brank4"
+                           Text="Back"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label x:Name="Brank5"
+                           Text="a"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
-        
-        
-        
-        
         <StackLayout x:Name="SidePane"
-                     BackgroundColor="AliceBlue">
-            <ListView x:Name="ll9"
-              SeparatorVisibility="Default"
-              ItemsSource="{Binding MenuItems}">
+                     BackgroundColor="White"
+                     Opacity="0.5">
+            <ListView x:Name="ShortList"
+                      SeparatorVisibility="Default"
+                      ItemsSource="{Binding MenuItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="7,7" HorizontalOptions="FillAndExpand">
+                            <StackLayout Padding="7,7" 
+                                         HorizontalOptions="FillAndExpand">
                                 <Label VerticalOptions="FillAndExpand" 
-                                 VerticalTextAlignment="Center" 
-                                 Text="{Binding Title}" 
-                                 FontSize="18"/>
+                                       VerticalTextAlignment="Center" 
+                                       Text="{Binding Title}" 
+                                       FontSize="18"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -55,9 +55,7 @@ namespace ForYouApplication
             DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
 
             MasterPage.ListView.ItemSelected += ListViewItemSelected;
-
-
-
+            
             TapGestureRecognizer ges = new TapGestureRecognizer();
             ges.Tapped += (s, e) => OnLabelClicked(s, e);
             DetailPage.Uplabel1.GestureRecognizers.Add(ges);
@@ -65,6 +63,11 @@ namespace ForYouApplication
             DetailPage.Leftlabel1.GestureRecognizers.Add(ges);
             DetailPage.Rightlabel1.GestureRecognizers.Add(ges);
             DetailPage.Downlabel1.GestureRecognizers.Add(ges);
+            DetailPage.Shift.GestureRecognizers.Add(ges);
+            DetailPage.Tab.GestureRecognizers.Add(ges);
+            DetailPage.ChangeTab.GestureRecognizers.Add(ges);
+            DetailPage.Editor.GestureRecognizers.Add(ges);
+
 
         }
 
@@ -74,7 +77,7 @@ namespace ForYouApplication
             base.OnDisappearing();
 
             /* リモートホストとの接続を切る */
-            //   Client.Disconnect();
+            Client.Disconnect();
         }
 
         /* リモートホストの名前を取得する */
@@ -91,15 +94,20 @@ namespace ForYouApplication
             });
         }
 
+        /* ラベルタップ用イベント */
         private void OnLabelClicked(object sender, EventArgs e)
         {
-            if (sender.Equals(DetailPage.Uplabel1))
+            
+            if (sender.Equals(DetailPage.Backlabel1))
+            {
+                if (!DetailPage.ShiftFlag)
+                {
+                    Client.Send("<BAC>");
+                }
+            }
+            else if (sender.Equals(DetailPage.Uplabel1))
             {
                 Client.Send("<UPP>");
-            }
-            else if (sender.Equals(DetailPage.Backlabel1))
-            {
-                Client.Send("<BAC>");
             }
             else if (sender.Equals(DetailPage.Rightlabel1))
             {
@@ -113,12 +121,30 @@ namespace ForYouApplication
             {
                 Client.Send("<LEF>");
             }
+            else if (sender.Equals(DetailPage.Shift))
+            {
+                Client.Send("<SHI>");
+            }
+            else if (sender.Equals(DetailPage.Tab))
+            {
+                Client.Send("<TAB>");
+            }
+            else if (sender.Equals(DetailPage.Tab))
+            {
+                Client.Send("<ENT>");
+            }
+            else if (sender.Equals(DetailPage.ChangeTab))
+            {
+                if (!DetailPage.ShiftFlag)
+                {
+                    Client.Send("<CTA>");
+                }
+            }
         }
 
         /* ショートカットリストのアイテムが選択されたときのイベント */
         private void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("dasfuigadsfgusidhfudhfaoidjfiodhgouahduohgfohufihreuhuirhuihruifhruifhahgushguerhuigrhofheruofhouegherui");
             /* 選択されたリストアイテム取得 */
             ShortCutListItem item = e.SelectedItem as ShortCutListItem;
 
@@ -130,62 +156,12 @@ namespace ForYouApplication
                 return;
 
             }
-            /* こぴーを選択した場合 */
-            if (id == 10)
-            {
-                Client.Send(TagConstants.COPY.GetConstants());
 
-            }
-            /* カットを選択した場合 */
-            else if (id == 11)
-            {
-                Client.Send(TagConstants.CUT.GetConstants());
-            }
-            /* pasteを選択した場合 */
-            else if (id == 12)
-            {
-                Client.Send(TagConstants.PASTE.GetConstants());
-            }
-            /* 過去を選択した場合 */
-            else if (id == 13)
-            {
-                Client.Send("<BEF>");
-            }
-            /* 未来を選択した場合 */
-            else if (id == 14)
-            {
-                Client.Send("<AFT>");
-            }
-            /* 検索を選択した場合 */
-            else if (id == 15)
-            {
-                Client.Send("<SEA>");
-            }
-            /* 開くを選択した場合 */
-            else if (id == 16)
-            {
-                Client.Send("<OPN>");
-            }
-            /* 新規を選択7した場合 */
-            else if (id == 17)
-            {
-                //Client.Send("<NEW>");
-            }
-            /* 名前を付けて保存を選択した場合 */
-            else if (id == 18)
-            {
-                Client.Send("<NSA>");
-            }
-            /* 上書きを選択した場合 */
-            else if (id == 19)
-            {
-                Client.Send("<SAV>");
-            }
-            /* 全選択を選択した場合 */
-            else if (id == 20)
-            {
-                Client.Send("<ALL>");
-            }
+            /* ショートカットコマンドの取得 */
+            string send = item.Send;
+
+            /* ショートカット送信 */
+            Client.Send(send);
             
             DetailPage.ShortCutList.SelectedItem = null;
         }
@@ -288,7 +264,6 @@ namespace ForYouApplication
 
             await Task.Run(() =>
             {
-                System.Diagnostics.Debug.WriteLine("deg : TextChange発生");
                 /* 加工後の文字列とEditorを操作するための数値を取得 */
                 (int index, string send) process = SaveText == null || SaveText == "" ?
                                                    (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
@@ -296,13 +271,12 @@ namespace ForYouApplication
                 string send = process.send;
 
                 /* リモートホストへ送信 */
-                if (send=="\n")
+                if (send == "\n")
                 {
                     Client.Send("<ENT>");
                 }
                 else
                 {
-
                     Client.Send(send);
                 }
 
