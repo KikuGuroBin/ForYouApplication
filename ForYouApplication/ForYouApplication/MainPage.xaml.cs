@@ -62,8 +62,11 @@ namespace ForYouApplication
                         /* 接続 */
                         await client.ConnectAsync(address, 55555);
 
-                        /* 送信文字入力画面へ画面遷移 */
+                        /* 送信文字入力画面へ画面遷移 
                         await Navigation.PushAsync(new SendFormPage(client), true);
+                        */
+
+                        Application.Current.MainPage = new SendFormPage(client);
                     }
                     catch(Exception ex)
                     {

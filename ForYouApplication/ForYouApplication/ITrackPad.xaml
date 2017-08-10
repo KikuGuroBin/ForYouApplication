@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ForYouApplication;assembly:ForYouApplication"
              x:Class="ForYouApplication.ITrackPad">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!"
-                   HorizontalOptions="Center" />
+        <AbsoluteLayout>
+            <local:TrackPad x:Name="TrackPad"/>
+        </AbsoluteLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="LabelLeft"
+
+                   Text="LEFT">
+            </Label>
+            <Label x:Name="LabelRight"
+                   Text="RIGHT">
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -21,6 +21,8 @@ namespace ForYouApplication
         CUT,
         /* ペーストタグ */
         PASTE,
+        /* トラックパッドタグ */
+        MOUSE,
         /* 切断タグ */
         END
     }
@@ -28,7 +30,7 @@ namespace ForYouApplication
     /* TagConstantsの拡張クラス */
     public static class TagConstantsEx
     {
-        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<END>" };
+        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<MOU>", "<END>" };
 
         public static string GetConstants(this TagConstants value)
         {

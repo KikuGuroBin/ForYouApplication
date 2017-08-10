@@ -26,33 +26,8 @@
 
                 <StackLayout
                     Orientation="Horizontal">
-
-                    <Label x:Name="Swift"
-                           Text="Shift"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShiftTap"/>
-                        </Label.GestureRecognizers>
-                    </Label>
                     <Label x:Name="UpLabel"
                            Text="↑"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Tub" 
-                           Text="Tab"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="ShotcutLabel"
-                           Text="SH"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShortCutTap"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                    <Label x:Name="ChanTab" 
-                           Text="ChanTab"
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
                 </StackLayout>
@@ -68,14 +43,6 @@
                            VerticalTextAlignment="Center"/>
                     <Label x:Name="RightLabel"
                            Text="→"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="BackLabel"
-                           Text="Back"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Ender"
-                           Text="Enter"
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
                 </StackLayout>
@@ -107,6 +74,39 @@
                 <ScrollView x:Name="Scroll"
                             Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal">
+                        <Label x:Name="Swift"
+                           Text=""
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShiftTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="Tub" 
+                           Text="Tab"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                        <Label x:Name="ShotcutLabel"
+                           Text="SH"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShortCutTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="ChanTab" 
+                           Text="ChanTab"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                        <Label x:Name="BackLabel"
+                           Text="Back"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                        <Label x:Name="Ender"
+                           Text="Enter"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                        <!--
                         <Label Text="Item1"/>
                         <Label Text="Item2"/>
                         <Label Text="Item3"/>
@@ -117,13 +117,13 @@
                         <Label Text="Item8"/>
                         <Label Text="Item9"/>
                         <Label Text="Item10"/>
+                        -->
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
         </StackLayout>
         <StackLayout x:Name="SidePane"
-                     BackgroundColor="White"
-                     Opacity="0.5">
+                     BackgroundColor="White">
             <ListView x:Name="ShortList"
                       SeparatorVisibility="Default"
                       ItemsSource="{Binding MenuItems}">

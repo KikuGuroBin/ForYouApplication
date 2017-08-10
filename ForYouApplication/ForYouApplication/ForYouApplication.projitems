@@ -23,8 +23,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ManipulationDeltaRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackPad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Page.xaml.cs">
       <DependentUpon>Page.xaml</DependentUpon>
       <SubType>Code</SubType>

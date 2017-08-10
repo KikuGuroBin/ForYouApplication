@@ -16,10 +16,7 @@ namespace ForYouApplication
 
         /* Editorの一時保存用 */
         private string SaveText;
-
-        /* 送信した全テキストの格納用 */
-        private Queue<string> SendLog = new Queue<string>();
-
+        
         /* Editor.TextChange制御用 */
         private bool EditorFlag;
 
@@ -46,8 +43,9 @@ namespace ForYouApplication
             /* 受信待ち開始 */
             Client.Receive();
 
-            /* ナビゲーションバーを非表示にする */
+            /* ナビゲーションバーを非表示にする 
             NavigationPage.SetHasNavigationBar(this, false);
+            */
 
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
@@ -180,32 +178,8 @@ namespace ForYouApplication
                 return;
             }
             
-            /* 送信ログを選択した場合 */
-            if (id == 3)
-            {
-                /* 蓄積した送信ログを配列に書き出す */
-                string[] log = SendLog.ToArray();
-
-                /* アラートシート表示 */
-                string result = await DisplayActionSheet("送信ログ", "", "", log);
-
-                if (result != "")
-                {
-                    /* 
-                     * Dependencyに設定した、
-                     * 各プラットフォームで作成したIClipBoardを実装したクラスを呼び出し、
-                     * クラスのメソッドを使って選択したログをクリップボードに保存
-                     */
-                    DependencyService.Get<IClipBoard>().SaveClipBoard(result);
-                }
-            }
-            /* テンプレートを選択した場合 */
-            else if (id == 2)
-            {
-
-            }
             /* トラックパッドを選択した場合 */
-            else if (id == 1)
+            if (id == 1)
             {
                 await Navigation.PushAsync(new ITrackPad());
             }
@@ -304,14 +278,6 @@ namespace ForYouApplication
                 /* クライアントが改行した場合 */
                 if (text.IndexOf("\n") > -1)
                 {
-                    /* 改行コード以外の文字がある場合 */
-                    if (text.Length > 1)
-                    {
-                        /* ログに保存する */
-                        string save = text.Replace("\n", "");
-                        SendLog.Enqueue(save);
-                    }
-
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         /* Editor.Textを空白にする */
