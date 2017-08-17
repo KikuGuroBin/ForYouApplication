@@ -29,9 +29,9 @@ namespace ForYouApplication.Droid
         private void OnTrackPadTouch(object sender, TouchEventArgs args)
         {
             Android.Views.View view = sender as Android.Views.View;
-            float dx = 0;
-            float dy = 0;
-            int action = -1;
+            float dx = 1;
+            float dy = 1;
+            int action = 1;
 
             switch (args.Event.Action)
             {
@@ -45,22 +45,21 @@ namespace ForYouApplication.Droid
                     break;
                 case MotionEventActions.Move:
                     /* 移動距離を計算 */
-                    dx = (args.Event.RawX - PreviousBeforeX) / 2;
-                    dy = (args.Event.RawY - PreviousBeforeY) / 2;
+                    float adx = (args.Event.RawX - PreviousBeforeX) / 2;
+                    float ady = (args.Event.RawY - PreviousBeforeY) / 2;
 
                     action = 2;
-                    
+
+                    /* コールバック呼び出し */
+                    TrackPad el = Element as TrackPad;
+                    el.OnManipulationDelta(el, new ManipulationDeltaRoutedEventArgs(sender, adx, ady, action));
+
                     break;
                 case MotionEventActions.Up:
                     action = 3;
 
                     break;
             }
-
-            /* コールバック呼び出し */
-            TrackPad el = Element as TrackPad;
-            el.OnManipulationDelta(el, new ManipulationDeltaRoutedEventArgs(sender, dx, dy, action));
-            
             /* 現在の絶対位置を保存 */
             PreviousBeforeX = args.Event.RawX;
             PreviousBeforeY = args.Event.RawY;
