@@ -1,36 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ForYouApplication
+﻿namespace ForYouApplication
 {
     public class ManipulationDeltaRoutedEventArgs
     {
-        public Delta_ Delta { get; set; }
         public object OriginalSource { get; set; }
 
-        public ManipulationDeltaRoutedEventArgs(object source, double deltaX, double deltaY)
+        /* アクションの種類 */
+        public int Action { get; set; }
+        
+        /* 移動距離差分 */
+        public Translation Translation { get; set; }
+
+        public ManipulationDeltaRoutedEventArgs(object source, double deltaX, double deltaY, int action)
         {
             OriginalSource = source;
-            Delta = new Delta_()
+            Action = action;
+            Translation = new Translation()
             {
-                Translation = new Delta_.Translation_()
-                {
-                    X = deltaX,
-                    Y = deltaY
-                }
+                X = deltaX,
+                Y = deltaY
             };
-        }
-
-        public class Delta_
-        {
-            public Translation_ Translation { get; set; }
-
-            public class Translation_
-            {
-                public double X { get; set; }
-                public double Y { get; set; }
-            }
         }
     }
 }

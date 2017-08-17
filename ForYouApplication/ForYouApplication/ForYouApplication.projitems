@@ -26,10 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ManipulationDeltaRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackPad.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Page.xaml.cs">
-      <DependentUpon>Page.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SendFormPage.xaml.cs">
       <DependentUpon>SendFormPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -46,10 +42,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SendCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShortCutListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TitleCall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Translation.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
@@ -81,12 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ITrackPad.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

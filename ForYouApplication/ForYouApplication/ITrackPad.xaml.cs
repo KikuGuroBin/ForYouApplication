@@ -30,57 +30,48 @@ namespace ForYouApplication
 		public ITrackPad ()
 		{
 			InitializeComponent ();
-		}
+            
+        }
 
         public ITrackPad(AsyncTcpClient client)
         {
             InitializeComponent();
 
             Client = client;
-
-            /* トラックパッドのポインタをレイアウトの中心に */
-            TrackPad.VerticalOptions = LayoutOptions.Center;
-            TrackPad.HorizontalOptions = LayoutOptions.Center;
+            
         }
 
         /* 画面サイズが変更されたときのイベント */
         protected override void OnSizeAllocated(double width, double heigth)
         {
             /* トラックパッドのポインタの初期値を格納 */
-            InitTrackPadX = TrackPad.X + TrackPad.Width / 2;
-            InitTrackPadY = TrackPad.Y + TrackPad.Height / 2;
-
-            /*  */
-            SaveTrackPadX = InitTrackPadX;
-            SaveTrackPadY = InitTrackPadY;
+            InitTrackPadX = TrackPad.X;
+            InitTrackPadY = TrackPad.Y;
         }
 
-        /* トラックパッドのポインタが動くのを検知する */
-        private async void TrackPadMove()
+        /* レンダラーのコールバック */
+        private void OnDrug(object sender, ManipulationDeltaRoutedEventArgs args)
         {
-            await Task.Run(() =>
+            string action = null;
+
+            /* アクションごとに処理 */
+            switch (args.Action)
             {
-                while (true)
-                {
-                    /* 座標の差分を計算 */
-                    double x = TrackPad.X + TrackPad.Width / 2 - SaveTrackPadX;
-                    double y = TrackPad.Y + TrackPad.Height / 2 - SaveTrackPadY;
+                case 1:
+                    action = TagConstants.DOWN.GetConstants();
+                    break;
+                case 2:
+                    action = TagConstants.MOVE.GetConstants();
+                    break;
+                case 3:
+                    action = TagConstants.UP.GetConstants();
+                    break;
+            }
 
-                    /* トラックパッドのポインタの中心座標が移動した場合 */
-                    if (x != 0 || y != 0)
-                    {
-                        /* リモートホストに移動した分の数値を送信 
-                        Client.Send(TextProcess.TextJoin(null, TagConstants.MOUSE.GetConstants(), x.ToString(), y.ToString()));
-                        */
+            /* 加工 */
+            string send = TextProcess.TextJoin(null, action, args.Translation.X.ToString(), args.Translation.Y.ToString());
 
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            TrackPad.TranslationX = InitTrackPadX;
-                            TrackPad.TranslationY = InitTrackPadY;
-                        });
-                    }
-                }
-            });
+            Client.Send(send);
         }
     }
 }

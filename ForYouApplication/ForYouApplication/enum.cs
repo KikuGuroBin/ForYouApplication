@@ -21,8 +21,12 @@ namespace ForYouApplication
         CUT,
         /* ペーストタグ */
         PASTE,
-        /* トラックパッドタグ */
-        MOUSE,
+        /* カーソルダウンタグ */
+        DOWN,
+        /* カーソルアップタグ */
+        UP,
+        /* カーソル移動タグ */
+        MOVE,
         /* 切断タグ */
         END
     }
@@ -30,24 +34,11 @@ namespace ForYouApplication
     /* TagConstantsの拡張クラス */
     public static class TagConstantsEx
     {
-        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<MOU>", "<END>" };
+        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<DOW>", "<UPP>", "<MOV>", "<END>" };
 
         public static string GetConstants(this TagConstants value)
         {
             return values[(int)value];
-        }
-
-        public static bool Contains(string text)
-        {
-            for (int i = 0; i < values.Length; i++)
-            {
-                if (text.IndexOf(values[i]) > -1)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }
