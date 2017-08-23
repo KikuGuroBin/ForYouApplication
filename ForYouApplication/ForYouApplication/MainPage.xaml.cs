@@ -22,19 +22,25 @@ namespace ForYouApplication
 		}
 
         /* デバッグモード選択時 */
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private async void OnDebugTap(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SendFormPage(), false);
+            await Navigation.PushAsync(new SendFormPage(), false);
         }
         
-        /*  */
-        private void Button_taped(object sender, EventArgs e)
+        /* USBモード選択時のイベント */
+        private async void OnUSBTap(object sender, EventArgs e)
         {
-            //this.Label1.Text = "座マリウス";
+            await Task.Run(() =>
+            {
+                Thread.Sleep(1000);
+            });
         }
 
-        async private void QR_taped(object sender, EventArgs args)
+        /* WiFiモード選択時のイベント */
+        private async void OnQRTap(object sender, EventArgs args)
         {
+            WiFiLabel.TextColor = Color.AliceBlue;
+
             /* スキャナページの設定 */
             ZXingScannerPage scanPage = new ZXingScannerPage();
 
@@ -68,10 +74,8 @@ namespace ForYouApplication
 
                         Application.Current.MainPage = new SendFormPage(client);
                     }
-                    catch(Exception ex)
+                    catch(Exception)
                     {
-                        System.Diagnostics.Debug.WriteLine(ex.StackTrace);
-
                         /* 自分のIPアドレスを取得し、文字列に変換 */
                         IPAddress ipAddress = MyIPAddress.GetIPAddress();
                         string myAddress = ipAddress.ToString();

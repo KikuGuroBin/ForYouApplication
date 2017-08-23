@@ -20,9 +20,21 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ManipulationDeltaRoutedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyBoxView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StartPageDetail.xaml.cs">
+      <DependentUpon>StartPageDetail.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StartPageMaster.xaml.cs">
+      <DependentUpon>StartPageMaster.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StartPageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)TrackPad.cs" />
@@ -45,6 +57,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShortCutListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TitleCall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackPadPage.xaml.cs">
+      <DependentUpon>TrackPadPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Translation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +92,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Page1.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)TrackPadPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)StartPageMaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)StartPageDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

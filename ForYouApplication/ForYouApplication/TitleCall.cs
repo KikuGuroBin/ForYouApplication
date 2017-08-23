@@ -54,7 +54,7 @@ namespace ForYouApplication
             await iconImage.ScaleTo(1, 400, Easing.Linear);
             await iconImage.ScaleTo(0.8, 400, Easing.Linear);
             await iconImage.ScaleTo(150, 800, Easing.Linear);
-            Application.Current.MainPage = new NavigationPage(new MainPage());
+            Application.Current.MainPage = new StartPage();
 
         }
     }

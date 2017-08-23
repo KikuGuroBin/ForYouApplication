@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyBoxViewRenderer.cs" />
     <Compile Include="TrackPadRenderer.cs" />
     <Compile Include="DroidClipBoard.cs" />
     <Compile Include="InputFormActivity.cs" />
@@ -176,6 +177,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\DM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\Wifi_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\USB_icon.png" />
   </ItemGroup>
   <Import Project="..\ForYouApplication\ForYouApplication.projitems" Label="Shared" Condition="Exists('..\ForYouApplication\ForYouApplication.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

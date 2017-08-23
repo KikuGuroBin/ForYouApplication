@@ -7,10 +7,6 @@
     <RelativeLayout HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     x:Name="MainLayout">
-        <!--
-        <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
-        -->
-
         <StackLayout x:Name="SendItems" 
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand"
@@ -46,31 +42,7 @@
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
                 </StackLayout>
-                <!--
-                <StackLayout
-                    Orientation="Horizontal">
-                    <Label x:Name="Brank1"
-                           Text="←"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Brank2"
-                           Text="↓"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Brank3"
-                           Text="→"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Brank4"
-                           Text="Back"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                    <Label x:Name="Brank5"
-                           Text="a"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                </StackLayout> 
-                -->
+                
                 <ScrollView x:Name="Scroll"
                             Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal">
@@ -126,7 +98,27 @@
                      BackgroundColor="White">
             <ListView x:Name="ShortList"
                       SeparatorVisibility="Default"
-                      ItemsSource="{Binding MenuItems}">
+                      ItemsSource="{Binding ShortCutItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="7,7" 
+                                         HorizontalOptions="FillAndExpand">
+                                <Label VerticalOptions="FillAndExpand" 
+                                       VerticalTextAlignment="Center" 
+                                       Text="{Binding Title}" 
+                                       FontSize="18"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout x:Name="KeyPane"
+                     BackgroundColor="White">
+            <ListView x:Name="SubKeyList"
+                      SeparatorVisibility="Default"
+                      ItemsSource="{Binding ShortCutItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

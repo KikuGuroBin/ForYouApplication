@@ -182,7 +182,7 @@ namespace ForYouApplication
             /* トラックパッドを選択した場合 */
             if (id == 1)
             {
-                await Navigation.PushAsync(new Page1());
+                await Navigation.PushAsync(new TrackPadPage());
             }
             /* 切断を選択した場合*/
             else if (id == 0)
@@ -203,7 +203,7 @@ namespace ForYouApplication
                 /* Detailの画面切り替え */
                 Page page = (Page)Activator.CreateInstance(item.TargetType);
                 page.Title = item.Title;
-                Detail = new NavigationPage(new Page1());
+                Detail = new NavigationPage(new TrackPadPage());
                 IsPresented = false;
             }
 

@@ -2,14 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ForYouApplication;assembly:ForYouApplication"
-             x:Class="ForYouApplication.Page1">
+             x:Class="ForYouApplication.TrackPadPage">
     <ContentPage.Content>
         <StackLayout>
+            <AbsoluteLayout VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand">
+                <local:TrackPad x:Name="TrackPad"
+                                WidthRequest="50"
+                                HeightRequest="50"
+                                BackgroundColor="Red"/>
+            </AbsoluteLayout>
             <Label Text="Welcome to Xamarin Forms!" />
-            <local:TrackPad x:Name="TrackPad"
-                            WidthRequest="50"
-                            HeightRequest="50"
-                            BackgroundColor="Red"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -10,11 +10,13 @@ using Xamarin.Forms.Xaml;
 namespace ForYouApplication
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Page1 : ContentPage
+	public partial class TrackPadPage : ContentPage
 	{
-		public Page1 ()
+		public TrackPadPage ()
 		{
 			InitializeComponent ();
+
+            TrackPad.SetEvent();
 		}
 	}
 }

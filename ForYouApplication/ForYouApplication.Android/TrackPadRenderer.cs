@@ -45,14 +45,10 @@ namespace ForYouApplication.Droid
                     break;
                 case MotionEventActions.Move:
                     /* 移動距離を計算 */
-                    float adx = (args.Event.RawX - PreviousBeforeX) / 2;
-                    float ady = (args.Event.RawY - PreviousBeforeY) / 2;
+                    dx = (args.Event.RawX - PreviousBeforeX) / 2;
+                    dy = (args.Event.RawY - PreviousBeforeY) / 2;
 
                     action = 2;
-
-                    /* コールバック呼び出し */
-                    TrackPad el = Element as TrackPad;
-                    el.OnManipulationDelta(el, new ManipulationDeltaRoutedEventArgs(sender, adx, ady, action));
 
                     break;
                 case MotionEventActions.Up:
@@ -60,6 +56,11 @@ namespace ForYouApplication.Droid
 
                     break;
             }
+
+            /* コールバック呼び出し */
+            TrackPad el = Element as TrackPad;
+            el.OnManipulationDelta(el, new ManipulationDeltaRoutedEventArgs(sender, dx, dy, action));
+
             /* 現在の絶対位置を保存 */
             PreviousBeforeX = args.Event.RawX;
             PreviousBeforeY = args.Event.RawY;

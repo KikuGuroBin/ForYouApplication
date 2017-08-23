@@ -18,7 +18,8 @@ namespace ForYouApplication
         private bool FirstOrder = true;
 
         /* 右からのショートカットメニュー用 */
-        public StackLayout Panel;
+        public StackLayout ShortCutPane;
+        public StackLayout SubKeyPane;
         public ListView ShortCutList;
         private double PanelWidth = -1;
         private bool _PanelShowing = false;
@@ -60,7 +61,7 @@ namespace ForYouApplication
 
             /* アイテムをSendFormPageで参照できるようにメンバ変数に格納 */
             Editor = SendText;
-            Panel = SidePane;
+            ShortCutPane = SidePane;
             Uplabel1 = UpLabel;
             Backlabel1 = BackLabel;
             Leftlabel1 = LeftLabel;
@@ -141,7 +142,24 @@ namespace ForYouApplication
         private void CreatePanel()
         {
             /* 生成したパネルをメインのレイアウトに組み込む */
-            MainLayout.Children.Add(Panel,
+            MainLayout.Children.Add(ShortCutPane,
+                Constraint.RelativeToParent((p) => {
+                    return MainLayout.Width - (this.PanelShowing ? PanelWidth : 0);
+                }),
+                Constraint.RelativeToParent((p) => {
+                    return 0;
+                }),
+                Constraint.RelativeToParent((p) => {
+                    if (PanelWidth == -1)
+                        PanelWidth = p.Width / 3;
+                    return PanelWidth;
+                }),
+                Constraint.RelativeToParent((p) => {
+                    return p.Height;
+                })
+            );
+
+            MainLayout.Children.Add(KeyPane,
                 Constraint.RelativeToParent((p) => {
                     return MainLayout.Width - (this.PanelShowing ? PanelWidth : 0);
                 }),
@@ -167,41 +185,25 @@ namespace ForYouApplication
             // show or hide the panel
             if (this.PanelShowing)
             {
-                /* hide all children*/
-                foreach (var child in Panel.Children)
-                {
-                    child.Scale = 0;
-                }
-                
                 // layout the panel to slide out
-                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height / 2);
-                var rect2 = new Rectangle(-Panel.Width, MainLayout.Y, MainLayout.Width + Panel.Width, MainLayout.Height);
-                
-                await Panel.LayoutTo(rect, 100, Easing.CubicIn);
-                await MainLayout.LayoutTo(rect2, 100, Easing.CubicIn);
+                var rect = new Rectangle(MainLayout.Width, ShortCutPane.Y, ShortCutPane.Width, ShortCutPane.Height / 2);
 
-                /* scale in the children for the panel*/
-                foreach (var child in Panel.Children)
-                {
-                    await child.ScaleTo(1.2, 50, Easing.CubicIn);
-                    await child.ScaleTo(1, 50, Easing.CubicOut);
-                }
+                /*
+                var rect2 = new Rectangle(-ShortCutPane.Width, MainLayout.Y, MainLayout.Width + ShortCutPane.Width, MainLayout.Height);
+                */
+
+                await ShortCutPane.LayoutTo(rect, 100, Easing.CubicIn);
+
+                EditLay.WidthRequest = EditLay.Width - ShortCutPane.Width - 20;
             }
             else
             {
                 // layout the panel to slide in
-                var rect = new Rectangle(MainLayout.Width, Panel.Y, Panel.Width, Panel.Height * 2);
-                var rect2 = new Rectangle(0, 0, MainLayout.Width - Panel.Width, MainLayout.Height);
+                var rect = new Rectangle(MainLayout.Width, ShortCutPane.Y, ShortCutPane.Width, ShortCutPane.Height * 2);
+                var rect2 = new Rectangle(0, 0, MainLayout.Width - ShortCutPane.Width, MainLayout.Height);
 
-                await Panel.LayoutTo(rect, 100, Easing.CubicOut);
-                await MainLayout.LayoutTo(rect2, 100, Easing.CubicOut);
-
-                /* hide all children
-                foreach (var child in Panel.Children)
-                {
-                    child.Scale = 0;
-                }
-                */
+                await ShortCutPane.LayoutTo(rect, 50, Easing.CubicOut);
+                await MainLayout.LayoutTo(rect2, 50, Easing.CubicOut);
             }
         }
 
@@ -239,13 +241,12 @@ namespace ForYouApplication
 
         class ShortCutListViewModel : INotifyPropertyChanged
         {
-            public ObservableCollection<ShortCutListItem> MenuItems { get; set; }
+            public ObservableCollection<ShortCutListItem> ShortCutItems { get; set; }
 
             public ShortCutListViewModel()
             {
-                MenuItems = new ObservableCollection<ShortCutListItem>(new[]
+                ShortCutItems = new ObservableCollection<ShortCutListItem>(new[]
                 {
-                    
                     new ShortCutListItem { Id = 10, Title = "コピー", Send = "<COP>" },
                     new ShortCutListItem { Id = 11, Title = "カット", Send = "<CUT>" },
                     new ShortCutListItem { Id = 12, Title = "ペースト", Send = "<PAS>" },

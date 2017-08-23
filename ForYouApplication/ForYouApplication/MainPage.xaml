@@ -2,36 +2,77 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ForYouApplication"
-             x:Class="ForYouApplication.MainPage">
+             x:Class="ForYouApplication.MainPage"
+             BackgroundColor="White">
 
-    <StackLayout
-               BackgroundColor="#2296f4"
-        >
-        <Image 
-                Source="WM.jpg"
+    <StackLayout BackgroundColor="White">
+        <Label Margin="20"/>
+        <StackLayout x:Name="Mode1"
+                     Orientation="Horizontal"
+                     VerticalOptions="Center"
+                     HorizontalOptions="CenterAndExpand"
+                     Padding="2">
+            <Image x:Name="WiFiIcon"
+                   Scale="0.4"
+                   Source="Wifi_icon.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Label x:Name="WiFiLabel" 
+                   Text="WiFi Mode       "
+                   FontSize="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnQRTap"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        <StackLayout x:Name="Mode2"
+                     Orientation="Horizontal"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Padding="2">
+            <Image x:Name="USBIcon"
+                   Scale="0.4"
+                   Source="USB_icon.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Label Text="USB Mode       "
+                   FontSize="30"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+            </Label>
+        </StackLayout>
+        <Label Text="Debug Mode"
+               FontSize="30"
+               VerticalOptions="Center"
+               HorizontalTextAlignment="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDebugTap"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <!--
+        <Image Source="WM.jpg"
                 HeightRequest="125">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="QR_taped"/>
             </Image.GestureRecognizers>
         </Image>
 
-        <Image 
-            Source="UM.jpg"
-            HeightRequest="125"
-         >
+        <Image Source="UM.jpg"
+               HeightRequest="125">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Button_taped"/>
             </Image.GestureRecognizers>
         </Image>
         <Image Source="DM"
-               HeightRequest="125"
-            >
+               HeightRequest="125">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Image.GestureRecognizers>
         </Image>
 
-        <!--Label Text="NETMODE ：実装済み"
+        Label Text="NETMODE ：実装済み"
                FontSize="30"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
@@ -65,6 +106,5 @@
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Label.GestureRecognizers>
         </Label>-->
-        
     </StackLayout>
 </ContentPage>
