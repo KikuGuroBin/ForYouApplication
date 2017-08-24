@@ -114,7 +114,10 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
+        
+        <!--
         <StackLayout x:Name="KeyPane"
+                     
                      BackgroundColor="White">
             <ListView x:Name="SubKeyList"
                       SeparatorVisibility="Default"
@@ -134,5 +137,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
+        -->
     </RelativeLayout>
 </ContentPage>

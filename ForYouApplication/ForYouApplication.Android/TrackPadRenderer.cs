@@ -4,6 +4,8 @@ using Xamarin.Forms;
 using ForYouApplication.Droid;
 using ForYouApplication;
 using Android.Views;
+using System;
+using Android.Graphics;
 
 [assembly: ExportRenderer(typeof(TrackPad), typeof(TrackPadRenderer))]
 namespace ForYouApplication.Droid
@@ -25,12 +27,31 @@ namespace ForYouApplication.Droid
             Touch += OnTrackPadTouch;
         }
 
+        public override void Draw(Canvas canvas)
+        {
+            TrackPad trackPad = (TrackPad)Element;
+
+            using (Paint paint = new Paint())
+            {
+                int shadowSize = 5;
+                int blur = shadowSize;
+                int radius = 100;
+
+                paint.AntiAlias = true;
+
+                /* 本体の描画 */
+                paint.SetMaskFilter(null);
+                RectF rectangle = new RectF(0, 0, Width, Height);
+                canvas.DrawRoundRect(rectangle, radius, radius, paint);
+            }
+        }
+
         /* タッチ用イベント */
         private void OnTrackPadTouch(object sender, TouchEventArgs args)
         {
             Android.Views.View view = sender as Android.Views.View;
-            float dx = 1;
-            float dy = 1;
+            double dx = 0;
+            double dy = 0;
             int action = 1;
 
             switch (args.Event.Action)
@@ -45,8 +66,8 @@ namespace ForYouApplication.Droid
                     break;
                 case MotionEventActions.Move:
                     /* 移動距離を計算 */
-                    dx = (args.Event.RawX - PreviousBeforeX) / 2;
-                    dy = (args.Event.RawY - PreviousBeforeY) / 2;
+                    dx = (args.Event.RawX - PreviousBeforeX) / 1.7;
+                    dy = (args.Event.RawY - PreviousBeforeY) / 1.7;
 
                     action = 2;
 
@@ -60,7 +81,7 @@ namespace ForYouApplication.Droid
             /* コールバック呼び出し */
             TrackPad el = Element as TrackPad;
             el.OnManipulationDelta(el, new ManipulationDeltaRoutedEventArgs(sender, dx, dy, action));
-
+            
             /* 現在の絶対位置を保存 */
             PreviousBeforeX = args.Event.RawX;
             PreviousBeforeY = args.Event.RawY;

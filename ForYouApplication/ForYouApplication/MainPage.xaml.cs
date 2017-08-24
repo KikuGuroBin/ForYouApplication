@@ -24,7 +24,9 @@ namespace ForYouApplication
         /* デバッグモード選択時 */
         private async void OnDebugTap(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SendFormPage(), false);
+            //Application.Current.MainPage = new SendFormPage();
+            
+            await Navigation.PushAsync(new SendFormPage()); 
         }
         
         /* USBモード選択時のイベント */
@@ -39,8 +41,6 @@ namespace ForYouApplication
         /* WiFiモード選択時のイベント */
         private async void OnQRTap(object sender, EventArgs args)
         {
-            WiFiLabel.TextColor = Color.AliceBlue;
-
             /* スキャナページの設定 */
             ZXingScannerPage scanPage = new ZXingScannerPage();
 
@@ -56,6 +56,8 @@ namespace ForYouApplication
                 /* PopAsyncで元のページに戻り、IPアドレスを取得し、リモートホストと接続を開始 */
                 Device.BeginInvokeOnMainThread(async () =>
                 {
+                    System.Diagnostics.Debug.WriteLine("deg : MainPage.OnQRTap");
+
                     await Navigation.PopAsync();
 
                     /* ホストアドレス取得 */
@@ -65,14 +67,17 @@ namespace ForYouApplication
 
                     try
                     {
+                        System.Diagnostics.Debug.WriteLine("deg : MainPage.OnQRTap2  " + address);
+
                         /* 接続 */
                         await client.ConnectAsync(address, 55555);
 
-                        /* 送信文字入力画面へ画面遷移 
+                        /* 送信文字入力画面へ画面遷移 */
                         await Navigation.PushAsync(new SendFormPage(client), true);
-                        */
-
+                        
+                        /*
                         Application.Current.MainPage = new SendFormPage(client);
+                        */
                     }
                     catch(Exception)
                     {

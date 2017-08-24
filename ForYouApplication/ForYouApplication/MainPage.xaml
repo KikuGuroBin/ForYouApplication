@@ -44,6 +44,7 @@
             </Label>
         </StackLayout>
         <Label Text="Debug Mode"
+               Opacity="0"
                FontSize="30"
                VerticalOptions="Center"
                HorizontalTextAlignment="Center">

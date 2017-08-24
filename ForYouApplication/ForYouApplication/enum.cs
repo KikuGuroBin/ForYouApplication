@@ -22,9 +22,9 @@ namespace ForYouApplication
         /* ペーストタグ */
         PASTE,
         /* カーソルダウンタグ */
-        DOWN,
+        MDOWN,
         /* カーソルアップタグ */
-        UP,
+        MUP,
         /* カーソル移動タグ */
         MOVE,
         /* 切断タグ */
@@ -34,7 +34,7 @@ namespace ForYouApplication
     /* TagConstantsの拡張クラス */
     public static class TagConstantsEx
     {
-        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<DOW>", "<UPP>", "<MOV>", "<END>" };
+        private static string[] values = { "<ENT>", "<DEL>", "<BAC>", "<CON>", "<COP>", "<CUT>", "<PAS>", "<MDO>", "<MUP>", "<MOV>", "<END>" };
 
         public static string GetConstants(this TagConstants value)
         {

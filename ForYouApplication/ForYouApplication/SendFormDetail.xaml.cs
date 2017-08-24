@@ -158,7 +158,7 @@ namespace ForYouApplication
                     return p.Height;
                 })
             );
-
+            /*
             MainLayout.Children.Add(KeyPane,
                 Constraint.RelativeToParent((p) => {
                     return MainLayout.Width - (this.PanelShowing ? PanelWidth : 0);
@@ -175,6 +175,7 @@ namespace ForYouApplication
                     return p.Height;
                 })
             );
+            */
         }
 
         private async void AnimatePanel()

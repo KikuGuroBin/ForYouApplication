@@ -8,7 +8,7 @@ namespace ForYouApplication
 		{
 			InitializeComponent();
 
-            MainPage = new TitleCall();
+            MainPage = new NavigationPage(new MainPage());
         }
 
 		protected override void OnStart ()

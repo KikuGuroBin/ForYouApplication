@@ -44,10 +44,9 @@ namespace ForYouApplication
             /* 受信待ち開始 */
             Client.Receive();
 
-            /* ナビゲーションバーを非表示にする 
+            /* ナビゲーションバーを非表示にする */
             NavigationPage.SetHasNavigationBar(this, false);
-            */
-
+            
             /* イベントハンドラー設定 */
             DetailPage.Editor.TextChanged += EditorTextChanged;
             DetailPage.ShortCutList.ItemSelected += ShortCutListItemSelected;
@@ -66,16 +65,7 @@ namespace ForYouApplication
             DetailPage.ChangeTab.GestureRecognizers.Add(ges);
             DetailPage.Editor.GestureRecognizers.Add(ges);
         }
-
-        /* 画面がアンロード(アプリ終了時)に呼ばれる */
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-            /* リモートホストとの接続を切る */
-            //Client.Disconnect();
-        }
-
+        
         /* リモートホストの名前を取得する */
         private async void SetHostName()
         {
@@ -96,7 +86,6 @@ namespace ForYouApplication
         /* ラベルタップ用イベント */
         private void OnLabelClicked(object sender, EventArgs e)
         {
-            
             if (sender.Equals(DetailPage.Backlabel1))
             {
                 if (!DetailPage.ShiftFlag)
@@ -153,7 +142,6 @@ namespace ForYouApplication
             if (id == -1)
             {
                 return;
-
             }
 
             /* ショートカットコマンドの取得 */
@@ -182,7 +170,7 @@ namespace ForYouApplication
             /* トラックパッドを選択した場合 */
             if (id == 1)
             {
-                await Navigation.PushAsync(new TrackPadPage());
+                await Navigation.PushAsync(Client == null ?  new TrackPadPage() : new TrackPadPage(Client));
             }
             /* 切断を選択した場合*/
             else if (id == 0)
