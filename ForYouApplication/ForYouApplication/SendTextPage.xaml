@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:MyContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:ForYouApplication;assembly:ForYouApplication"
+                 x:Class="ForYouApplication.SendTextPage">
+    <RelativeLayout x:Name="MainLayout"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="White">
+        <StackLayout x:Name="SendItems" 
+                     Orientation="Vertical"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <Editor x:Name="SendEditor"
+                    VerticalOptions="Start"
+                    TextChanged="EditorTextChanged"/>
+            <!--
+            <AbsoluteLayout>
+                <AbsoluteLayout x:Name="ArrowPane"
+                                BackgroundColor="DeepPink">
+                    <Label x:Name="UpLabel"
+                           Text="↑"
+                           FontSize="Large"
+                           BackgroundColor="White"
+                           WidthRequest="{Binding Path=Width}"
+                           HeightRequest="{Binding Path=Height}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="LeftLabel"
+                           Text="←"
+                           FontSize="Large"
+                           BackgroundColor="White"
+                           HorizontalTextAlignment="Center"
+                           WidthRequest="{Binding Path=Width}"
+                           HeightRequest="{Binding Path=Height}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="DownLabel"
+                            Text="↓"
+                               FontSize="Large"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Start">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="RightLabel"
+                               Text="→"
+                               FontSize="Large"
+                               BackgroundColor="White"
+                               HorizontalTextAlignment="Center"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </AbsoluteLayout>
+                <ScrollView x:Name="SubKeyPane"
+                            BackgroundColor="SpringGreen"
+                            Orientation="Horizontal">
+                    <AbsoluteLayout>
+                        <Label x:Name="Shift"
+                                Text="Shift"
+                               BackgroundColor="White"
+                                WidthRequest="{Binding Path=Width}"
+                                HeightRequest="{Binding Path=Height}"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShiftTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="Tab" 
+                               Text="Tab"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SubKeyTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="ChangeTab" 
+                               Text="タブ切り替え"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SubKeyTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="BackLabel"
+                               Text="Back"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SubKeyTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="Enter"
+                               Text="Enter"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SubKeyTap"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </AbsoluteLayout>
+                </ScrollView>
+            </AbsoluteLayout>
+            -->
+            <AbsoluteLayout x:Name="PCKeyPane"
+                            BackgroundColor="DeepPink">
+                <Label x:Name="Shift"
+                                Text="Shift"
+                               BackgroundColor="White"
+                                WidthRequest="{Binding Path=Width}"
+                                HeightRequest="{Binding Path=Height}"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ShiftTap"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="Tab" 
+                               Text="Tab"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SubKeyTap"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="ChangeTab" 
+                               Text="タブ切り替え"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SubKeyTap"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="BackLabel"
+                               Text="Back"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SubKeyTap"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="Enter"
+                               Text="Enter"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SubKeyTap"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="UpLabel"
+                           Text="↑"
+                           FontSize="Large"
+                           BackgroundColor="White"
+                           WidthRequest="{Binding Path=Width}"
+                           HeightRequest="{Binding Path=Height}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="LeftLabel"
+                           Text="←"
+                           FontSize="Large"
+                           BackgroundColor="White"
+                           HorizontalTextAlignment="Center"
+                           WidthRequest="{Binding Path=Width}"
+                           HeightRequest="{Binding Path=Height}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="DownLabel"
+                            Text="↓"
+                               FontSize="Large"
+                               BackgroundColor="White"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Start">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label x:Name="RightLabel"
+                               Text="→"
+                               FontSize="Large"
+                               BackgroundColor="White"
+                               HorizontalTextAlignment="Center"
+                               WidthRequest="{Binding Path=Width}"
+                               HeightRequest="{Binding Path=Height}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SubKeyTap"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+            </AbsoluteLayout>
+        </StackLayout>
+        <StackLayout x:Name="ShortCutPane"
+                     BackgroundColor="Cyan">
+            <ListView x:Name="ShortCutList"
+                      SeparatorVisibility="Default"
+                      ItemSelected="ShortCutListItemSelected"
+                      ItemsSource="{Binding ShortCutItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="7,7" 
+                                         HorizontalOptions="FillAndExpand">
+                                <Label VerticalOptions="FillAndExpand" 
+                                       VerticalTextAlignment="Center" 
+                                       TextColor="Gray"
+                                       Text="{Binding Title}" 
+                                       FontSize="18"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <AbsoluteLayout x:Name="FloatingPane"
+                        WidthRequest="160"
+                        HeightRequest="240">
+            <local:MyBoxView x:Name="ShortCutShow"
+                         MainColor="Cyan"
+                         Radius="70"
+                         ShadowSize="8"
+                         ShadowFlag="true"
+                         WidthRequest="70"
+                         HeightRequest="70"/>
+            <local:MyBoxView x:Name="PCKeyShow"
+                         MainColor="DeepPink"
+                         Radius="70"
+                         ShadowSize="8"
+                         ShadowFlag="true"
+                         WidthRequest="70"
+                         HeightRequest="70"/>
+        </AbsoluteLayout>
+    </RelativeLayout>
+</local:MyContentPage>

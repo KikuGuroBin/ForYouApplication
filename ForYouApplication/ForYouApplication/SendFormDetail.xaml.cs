@@ -123,10 +123,7 @@ namespace ForYouApplication
                 ShotcutLabel.HeightRequest = labelHeight;
                 Enter.HeightRequest = labelHeight;
 
-                /* エディターの幅、高さを設定
-                SendText.HeightRequest = LabelWidth * 2;
-                SendText.WidthRequest = labelHeight * 1.5;
-                */
+                MyBox.TranslationY = 300;
                 
                 EditLay.HeightRequest = labelHeight * 1.5;
 
@@ -204,7 +201,7 @@ namespace ForYouApplication
                 var rect2 = new Rectangle(0, 0, MainLayout.Width - ShortCutPane.Width, MainLayout.Height);
 
                 await ShortCutPane.LayoutTo(rect, 50, Easing.CubicOut);
-                await MainLayout.LayoutTo(rect2, 50, Easing.CubicOut);
+                //await MainLayout.LayoutTo(rect2, 50, Easing.CubicOut);
             }
         }
 

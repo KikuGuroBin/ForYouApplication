@@ -43,69 +43,37 @@
                    HorizontalOptions="Center">
             </Label>
         </StackLayout>
-        <Label Text="Debug Mode"
-               Opacity="0"
-               FontSize="30"
-               VerticalOptions="Center"
-               HorizontalTextAlignment="Center">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnDebugTap"/>
-            </Label.GestureRecognizers>
-        </Label>
-        <!--
-        <Image Source="WM.jpg"
-                HeightRequest="125">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Tapped="QR_taped"/>
-            </Image.GestureRecognizers>
-        </Image>
-
-        <Image Source="UM.jpg"
-               HeightRequest="125">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Button_taped"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <Image Source="DM"
-               HeightRequest="125">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-            </Image.GestureRecognizers>
-        </Image>
-
-        Label Text="NETMODE ：実装済み"
-               FontSize="30"
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center"
-               HeightRequest="125"
-               BackgroundColor="#2296f4">
-
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="QR_taped"/>
-            </Label.GestureRecognizers>
-        </>
-        <Label Text="USBMODE　：実装予定"
-               FontSize="Large"
-               TextColor="Red"
-               
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center"
-               VerticalOptions="FillAndExpand"
-               BackgroundColor="Aqua">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Button_taped"/>
-            </Label.GestureRecognizers>
-        </Label>
-        <Label Text="Intent　：デバッグ用"
-               TextColor="Red"
-               FontSize="Large" 
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center"
-               HeightRequest="175"
-               BackgroundColor="#2296f4">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-            </Label.GestureRecognizers>
-        </Label>-->
+        <StackLayout Opacity="0">
+            <Label x:Name="DebugLabel" 
+                   Text="Debug Mode"
+                   IsEnabled="false"
+                   FontSize="30"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDebugTap"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label x:Name="TabLabel" 
+                   Text="Tab Mode"
+                   IsEnabled="false"
+                   FontSize="30"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDebugTap"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Label x:Name="CaruselLabel" 
+                   Text="Carusel Mode"
+                   FontSize="30"
+                   IsEnabled="false"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDebugTap"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

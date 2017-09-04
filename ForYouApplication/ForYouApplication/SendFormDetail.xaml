@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ForYouApplication;assembly:ForYouApplication"
              x:Class="ForYouApplication.SendFormDetail"
-             x:Name="DetailContent"
              Title="Detail">
     <RelativeLayout HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
@@ -78,22 +78,13 @@
                            Text="Enter"
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
-                        <!--
-                        <Label Text="Item1"/>
-                        <Label Text="Item2"/>
-                        <Label Text="Item3"/>
-                        <Label Text="Item4"/>
-                        <Label Text="Item5"/>
-                        <Label Text="Item6"/>
-                        <Label Text="Item7"/>
-                        <Label Text="Item8"/>
-                        <Label Text="Item9"/>
-                        <Label Text="Item10"/>
-                        -->
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
         </StackLayout>
+
+        <local:MyBoxView x:Name="MyBox"/>
+
         <StackLayout x:Name="SidePane"
                      BackgroundColor="White">
             <ListView x:Name="ShortList"
@@ -114,29 +105,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        
-        <!--
-        <StackLayout x:Name="KeyPane"
-                     
-                     BackgroundColor="White">
-            <ListView x:Name="SubKeyList"
-                      SeparatorVisibility="Default"
-                      ItemsSource="{Binding ShortCutItems}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="7,7" 
-                                         HorizontalOptions="FillAndExpand">
-                                <Label VerticalOptions="FillAndExpand" 
-                                       VerticalTextAlignment="Center" 
-                                       Text="{Binding Title}" 
-                                       FontSize="18"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-        -->
     </RelativeLayout>
 </ContentPage>

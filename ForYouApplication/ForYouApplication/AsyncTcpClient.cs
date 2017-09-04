@@ -12,9 +12,9 @@ namespace ForYouApplication
 
         private TcpClient Client;
        
-        public AsyncTcpClient(TcpClient Client)
+        public AsyncTcpClient(TcpClient client)
         {
-            this.Client = Client;
+            Client = client;
         }
 
         /* 

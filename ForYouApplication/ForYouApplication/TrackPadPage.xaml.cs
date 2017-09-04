@@ -22,17 +22,15 @@ namespace ForYouApplication
         private double InitX;
         private double InitY;
         
-        private bool LeftFlag;
-        private bool RightFlag;
-
         /* デバッグ用コンストラクタ */
 		public TrackPadPage ()
 		{
 			InitializeComponent ();
-
-            TrackPad.SetEvent();
-
+            
+            /* イベント設定 */
             TrackPad.OnManipulationDelta += TrackPadDrug;
+            Left.Touch += OnLabelTouch;
+            Right.Touch += OnLabelTouch;
         }
 
         public TrackPadPage(AsyncTcpClient client)
@@ -40,29 +38,36 @@ namespace ForYouApplication
             InitializeComponent();
 
             Client = client;
-
-            TrackPad.SetEvent();
-
+            
+            /* イベント設定 */
             TrackPad.OnManipulationDelta += TrackPadDrug;
+            Left.Touch += OnLabelTouch;
+            Right.Touch += OnLabelTouch;
         }
 
         /* 画面サイズが変更された時のイベント */
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
-
+            
             MainPane.WidthRequest = width;
             
             ClickPane.TranslationY = MainPane.Height - ClickPane.Height;
             ClickPane.WidthRequest = width;
             
+            /* 中心座標 */
             double tpX = width / 2 - TrackPad.Width / 2;
             double tpY = (height - ClickPane.Height) / 2 - TrackPad.Height / 2;
-            
+
+            /*
             Rectangle trc = TrackPad.Bounds;
             trc.X = tpX;
             trc.Y = tpY;
             TrackPad.LayoutTo(trc);
+            */
+
+            TrackPad.TranslationX = tpX;
+            TrackPad.TranslationY = tpY;
 
             PointerImage.TranslationX = tpX;
             PointerImage.TranslationY = tpY;
@@ -80,14 +85,18 @@ namespace ForYouApplication
             /* 引数argsのフィールドによってリモートホストに送信するタグを変える */
             if (args.Action == 1)
             {
+                /* ダウン */
                 action = TagConstants.MDOWN.GetConstants();
 
+                /* ポインタの画像を差し替える */
                 PointerImage.Source = "Mouse_On.gif";
             }
             else if (args.Action == 2)
             {
+                /* ドラッグ */
                 action = TagConstants.MOVE.GetConstants();
 
+                /* ポインタの画像を移動 */
                 PointerImage.TranslationX += args.Translation.X;
                 PointerImage.TranslationY += args.Translation.Y;
 
@@ -98,17 +107,19 @@ namespace ForYouApplication
             }
             else if (args.Action == 3)
             {
+                /* アップ */
                 action = TagConstants.MUP.GetConstants();
 
+                /* ポインタの画像を差し替える */
                 PointerImage.Source = "Mouse_Off.gif";
 
+                /* ドラッグからのアップだった場合 */
                 if (DrugFlag)
                 {
                     DrugFlag = false;
 
-                    Rectangle trc = TrackPad.Bounds;
-                    trc.X = InitX;
-                    trc.Y = InitY;
+                    /* ポインタと画像を中心に移動 */
+                    Rectangle trc = new Rectangle(0, 0, 60, 60);
                     TrackPad.LayoutTo(trc);
 
                     PointerImage.TranslationX = InitX;
@@ -116,60 +127,38 @@ namespace ForYouApplication
                 }
             }
 
+            /* 移動した数値をリモートホスト側の処理用に加工 */
             double x = args.Translation.X;
             double y = args.Translation.Y;
 
+            /* 送信 */
             string send = TextProcess.TextJoin(null, action, x.ToString(), y.ToString());
 
+            /* 送信 */
             if (Client != null)
             {
+                System.Diagnostics.Debug.WriteLine("deg : TrackPad.Send");
+
                 Client.Send(send);
             }
         }
 
-        private void OnLeftClick(object sender, EventArgs args)
+        /* 左クリックまたは右クリック時のイベント */
+        private void OnLabelTouch(object sender, MyLabelEventArgs args)
         {
             if (!DrugFlag && Client != null)
             {
-                string send = null;
+                /* タグ生成 */
+                string tag = CreateTag(sender, args.Action);
 
-                if (LeftFlag)
-                {
-                    send = TextProcess.TextJoin(null, "<LCU>");
-                    LeftFlag = false;
-                }
-                else
-                {
-                    send = TextProcess.TextJoin(null, "<LCD>");
-                    LeftFlag = true;
-                }
+                /* リモートホスト側が処理する形式に加工 */
+                string send = TextProcess.TextJoin(null, tag);
                 
+                /* 送信 */
                 Client.Send(send);
             }
         }
-
-        private void OnRightClick(object sender, EventArgs args)
-        {
-
-            if (!DrugFlag && Client != null)
-            {
-                string send = null;
-
-                if (LeftFlag)
-                {
-                    send = TextProcess.TextJoin(null, "<RCU>");
-                    RightFlag = false;
-                }
-                else
-                {
-                    send = TextProcess.TextJoin(null, "<RCD>");
-                    RightFlag = true;
-                }
-               
-                Client.Send(send);
-            }
-        }
-
+        
         private void OnUpClick(object sender, EventArgs args)
         {
             if (!DrugFlag && Client != null)
@@ -186,6 +175,42 @@ namespace ForYouApplication
                 string send = TextProcess.TextJoin(null, "<CCD>");
                 Client.Send(send);
             }
+        }
+
+        public void SetClient(AsyncTcpClient client)
+        {
+            Client = client;
+        }
+
+        /* 送信タグ生成 */
+        private string CreateTag(object sender, int action)
+        {
+            StringBuilder tag = new StringBuilder("<");
+
+            /* 引数senderの判別 */
+            if (sender.Equals(Right))
+            {
+                tag.Append("RC");
+            }
+            else
+            {
+                tag.Append("LC");
+            }
+
+            /* アクションの種類 */
+            switch (action)
+            {
+                /* ダウン */
+                case 1:
+                    tag.Append("D>");
+                    break;
+                /* アップ */
+                case 2:
+                    tag.Append("U>");
+                    break;
+            }
+
+            return tag.ToString();
         }
     }
 }

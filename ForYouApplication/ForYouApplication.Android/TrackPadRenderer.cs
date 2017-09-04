@@ -27,29 +27,9 @@ namespace ForYouApplication.Droid
             Touch += OnTrackPadTouch;
         }
 
-        public override void Draw(Canvas canvas)
-        {
-            TrackPad trackPad = (TrackPad)Element;
-
-            using (Paint paint = new Paint())
-            {
-                int shadowSize = 5;
-                int blur = shadowSize;
-                int radius = 100;
-
-                paint.AntiAlias = true;
-
-                /* 本体の描画 */
-                paint.SetMaskFilter(null);
-                RectF rectangle = new RectF(0, 0, Width, Height);
-                canvas.DrawRoundRect(rectangle, radius, radius, paint);
-            }
-        }
-
         /* タッチ用イベント */
         private void OnTrackPadTouch(object sender, TouchEventArgs args)
         {
-            Android.Views.View view = sender as Android.Views.View;
             double dx = 0;
             double dy = 0;
             int action = 1;

@@ -12,7 +12,7 @@ namespace ForYouApplication
 	public partial class MainPage : ContentPage
 	{
         private const string NETWORKERROR = "ネットワークエラー";
-        private const string NETWORKERRORMESSAGE1 = "PCとスマートフォンが同じWi-Fiに接続されていない可能性があります。\n確認したのちもう一度お試しください。\nIPアドレス\n\tPC:";
+        private const string NETWORKERRORMESSAGE1 = "PCとスマートフォンが同じWi-Fiに接続されていない可能性があります。\n一度PC、スマートフォンをWiFiに接続しなおしてください。\nIPアドレス\n\tPC:";
         private const string NETWORKERRORMESSAGE2 = "\n\tスマフォ:";
         private const string OK = "OK";
 
@@ -24,9 +24,18 @@ namespace ForYouApplication
         /* デバッグモード選択時 */
         private async void OnDebugTap(object sender, EventArgs e)
         {
-            //Application.Current.MainPage = new SendFormPage();
-            
-            await Navigation.PushAsync(new SendFormPage()); 
+            if (sender.Equals(DebugLabel))
+            {
+                await Navigation.PushAsync(new SendFormPage());
+            }
+            else if (sender.Equals(TabLabel))
+            {
+                await Navigation.PushAsync(new ClientTabbedPage());
+            }
+            else
+            {
+                Application.Current.MainPage = new StartPage();
+            }
         }
         
         /* USBモード選択時のイベント */
@@ -56,8 +65,6 @@ namespace ForYouApplication
                 /* PopAsyncで元のページに戻り、IPアドレスを取得し、リモートホストと接続を開始 */
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    System.Diagnostics.Debug.WriteLine("deg : MainPage.OnQRTap");
-
                     await Navigation.PopAsync();
 
                     /* ホストアドレス取得 */
@@ -67,19 +74,17 @@ namespace ForYouApplication
 
                     try
                     {
-                        System.Diagnostics.Debug.WriteLine("deg : MainPage.OnQRTap2  " + address);
-
                         /* 接続 */
                         await client.ConnectAsync(address, 55555);
-
-                        /* 送信文字入力画面へ画面遷移 */
-                        await Navigation.PushAsync(new SendFormPage(client), true);
                         
+                        /* 送信文字入力画面へ画面遷移 */
+                        await Navigation.PushAsync(new ClientTabbedPage(client), true);
+
                         /*
                         Application.Current.MainPage = new SendFormPage(client);
                         */
                     }
-                    catch(Exception)
+                    catch(SocketException)
                     {
                         /* 自分のIPアドレスを取得し、文字列に変換 */
                         IPAddress ipAddress = MyIPAddress.GetIPAddress();

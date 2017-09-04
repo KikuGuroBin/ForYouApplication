@@ -14,14 +14,29 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientTabbedPage.xaml.cs">
+      <DependentUpon>ClientTabbedPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INotification.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ManipulationDeltaRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyBoxView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyBoxViewEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyContentEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyLabelEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MyTabbedPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SendTextPage.xaml.cs">
+      <DependentUpon>SendTextPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -111,6 +126,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)StartPageDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SendTextPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ClientTabbedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

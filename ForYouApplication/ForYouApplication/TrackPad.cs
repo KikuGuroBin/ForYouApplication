@@ -9,14 +9,17 @@ namespace ForYouApplication
         public EventHandler<ManipulationDeltaRoutedEventArgs> OnManipulationDelta;
         
         /* ドラッグの動作をセット */
-        public void SetEvent()
+        public TrackPad()
         {
             OnManipulationDelta += (s, e) =>
             {
-                Rectangle rc = Bounds;
-                rc.X += e.Translation.X;
-                rc.Y += e.Translation.Y;
-                Layout(rc);
+                if (e.Action == 2)
+                {
+                    Rectangle rc = Bounds;
+                    rc.X += e.Translation.X;
+                    rc.Y += e.Translation.Y;
+                    Layout(rc);
+                }
             };
         }
     }

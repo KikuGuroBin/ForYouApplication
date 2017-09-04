@@ -38,9 +38,6 @@ namespace ForYouApplication
 
             Client = new AsyncTcpClient(client);
 
-            /* リモートホスト名取得 */
-            SetHostName();
-
             /* 受信待ち開始 */
             Client.Receive();
 
@@ -172,7 +169,7 @@ namespace ForYouApplication
             {
                 await Navigation.PushAsync(Client == null ?  new TrackPadPage() : new TrackPadPage(Client));
             }
-            /* 切断を選択した場合*/
+            /* 切断を選択した場合 */
             else if (id == 0)
             {
                 /* アラート表示 */
@@ -181,8 +178,12 @@ namespace ForYouApplication
                 /* OKを選択したとき */
                 if (result)
                 {
-                    /* リモートホストに切断要求をして、画面遷移 */
-                    Client.Send(TagConstants.END.GetConstants());
+                    if (Client != null)
+                    {
+                        /* リモートホストに切断要求をして、画面遷移 */
+                        Client.Send(TagConstants.END.GetConstants());
+                    }
+
                     await Navigation.PopAsync();
                 }
             }

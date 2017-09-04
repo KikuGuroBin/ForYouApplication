@@ -10,53 +10,47 @@
                 <Image x:Name="PointerImage"
                            Source="Mouse_Off.gif"/>
                 <local:TrackPad x:Name="TrackPad"
-                                    Opacity="0"
-                                    WidthRequest="60"
-                                    HeightRequest="60"/>
+                                Opacity="0"
+                                WidthRequest="60"
+                                HeightRequest="60"/>
                 <StackLayout x:Name="ClickPane" 
                          Orientation="Horizontal"
                          VerticalOptions="EndAndExpand"
                          HorizontalOptions="FillAndExpand"
                          BackgroundColor="White">
-                    <Label x:Name="Left"
+                    <local:MyLabel x:Name="Left"
                            Text="左クリック"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="Center"
                            HorizontalOptions="FillAndExpand">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnLeftClick"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                    </local:MyLabel>
                     <StackLayout HorizontalOptions="CenterAndExpand"
                                  BackgroundColor="White">
                         <Label x:Name="Up"
-                           Text="↑"
-                           FontSize="40"
-                           HorizontalOptions="FillAndExpand">
+                               Text="↑"
+                               FontSize="40"
+                               HorizontalOptions="FillAndExpand">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnUpClick"/>
                             </Label.GestureRecognizers>
                         </Label>
                         <Label x:Name="Down"
-                           FontSize="40"
-                           Text="↓"
-                           HorizontalOptions="FillAndExpand">
+                               FontSize="40"
+                               Text="↓"
+                               HorizontalOptions="FillAndExpand">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnDownClick"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <Label x:Name="Right"
+                    <local:MyLabel x:Name="Right"
                        Text="右クリック"
                        FontSize="20"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
                        HorizontalOptions="FillAndExpand">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnRightClick"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                    </local:MyLabel>
                 </StackLayout>
             </RelativeLayout>
         </StackLayout>
