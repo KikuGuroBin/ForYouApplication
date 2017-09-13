@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  
-  <!--2017/6/1 追加 QRコード読み取り用に権限を２つ追加-->
-  <uses-permission android:name="android.permission.CAMERA" />
-  <uses-permission android:name="android.permission.FLASHLIGHT" />
-	
-  <uses-sdk android:minSdkVersion="15" />
-	<application android:label="ForYouApplication.Android"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="jp.ncc.system.se3101.pcflick" android:installLocation="auto" android:versionCode="1" android:versionName="1.1">
+	<!--2017/6/1 追加 QRコード読み取り用に権限を２つ追加-->
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.FLASHLIGHT" />
+	<uses-sdk android:minSdkVersion="15" />
+	<application android:label="ForYouApplication.Android" android:icon="@drawable/title"></application>
 </manifest>
