@@ -43,7 +43,7 @@
                    HorizontalOptions="Center">
             </Label>
         </StackLayout>
-        <StackLayout Opacity="0">
+        <StackLayout Opacity="1">
             <Label x:Name="DebugLabel" 
                    Text="Debug Mode"
                    IsEnabled="false"
@@ -56,7 +56,6 @@
             </Label>
             <Label x:Name="TabLabel" 
                    Text="Tab Mode"
-                   IsEnabled="false"
                    FontSize="30"
                    VerticalOptions="Center"
                    HorizontalTextAlignment="Center">

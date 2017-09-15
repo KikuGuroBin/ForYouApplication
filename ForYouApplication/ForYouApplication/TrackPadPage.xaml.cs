@@ -126,20 +126,28 @@ namespace ForYouApplication
                     PointerImage.TranslationY = InitY;
                 }
             }
-
             /* 移動した数値をリモートホスト側の処理用に加工 */
-            double x = args.Translation.X;
-            double y = args.Translation.Y;
+            double x = Math.Truncate(args.Translation.X);
+            double y = Math.Truncate(args.Translation.Y);
 
-            /* 送信 */
+            if (args.Action == 2 && x == 0 && y == 0)
+            {
+                return;
+            }
+
+            /* 加工 */
             string send = TextProcess.TextJoin(null, action, x.ToString(), y.ToString());
 
             /* 送信 */
             if (Client != null)
             {
-                System.Diagnostics.Debug.WriteLine("deg : TrackPad.Send");
+                System.Diagnostics.Debug.WriteLine("deg : action = " + action + "x = " + x + "y = " + y);
 
                 Client.Send(send);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("deg : action = " + action);
             }
         }
 
@@ -151,11 +159,14 @@ namespace ForYouApplication
                 /* タグ生成 */
                 string tag = CreateTag(sender, args.Action);
 
-                /* リモートホスト側が処理する形式に加工 */
-                string send = TextProcess.TextJoin(null, tag);
-                
-                /* 送信 */
-                Client.Send(send);
+                if (tag != null)
+                {
+                    /* リモートホスト側が処理する形式に加工 */
+                    string send = TextProcess.TextJoin(null, tag);
+
+                    /* 送信 */
+                    Client.Send(send);
+                }
             }
         }
         
@@ -208,6 +219,8 @@ namespace ForYouApplication
                 case 2:
                     tag.Append("U>");
                     break;
+                default:
+                    return null;
             }
 
             return tag.ToString();
