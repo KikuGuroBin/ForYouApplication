@@ -25,6 +25,7 @@
                            HorizontalTextAlignment="Center"
                            HorizontalOptions="FillAndExpand">
                     </local:MyLabel>
+
                     <StackLayout HorizontalOptions="CenterAndExpand"
                                  BackgroundColor="White">
                         <Label x:Name="Up"
@@ -44,6 +45,17 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
+                    <!--
+                    <Label x:Name="Wheel"
+                           FontSize="40"
+                           Text="卍"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnWheelClick"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    -->
                     <local:MyLabel x:Name="Right"
                        Text="右クリック"
                        FontSize="20"

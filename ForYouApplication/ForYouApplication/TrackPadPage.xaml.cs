@@ -21,6 +21,9 @@ namespace ForYouApplication
         /* トラックパッドのポインタの初期座標 */
         private double InitX;
         private double InitY;
+
+        /*中ホイールon/offのｆラッグ*/
+        bool WheelFlag=false;
         
         /* デバッグ用コンストラクタ */
 		public TrackPadPage ()
@@ -142,7 +145,6 @@ namespace ForYouApplication
             if (Client != null)
             {
                 System.Diagnostics.Debug.WriteLine("deg : action = " + action + "x = " + x + "y = " + y);
-
                 Client.Send(send);
             }
             else
@@ -185,6 +187,25 @@ namespace ForYouApplication
             {
                 string send = TextProcess.TextJoin(null, "<CCD>");
                 Client.Send(send);
+            }
+        }
+
+        private void OnWheelClick(object sender, EventArgs args)
+        {
+            if (!DrugFlag && Client != null)
+            {
+                if (!WheelFlag) {
+                    string send = TextProcess.TextJoin(null, "<CCD>");
+                    Client.Send(send);
+                    WheelFlag = true;
+                }
+                else
+                {
+                    string send = TextProcess.TextJoin(null, "<CCU>");
+                    Client.Send(send);
+                    WheelFlag = false;
+                }
+
             }
         }
 
