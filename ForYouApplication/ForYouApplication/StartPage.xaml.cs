@@ -22,7 +22,10 @@ namespace ForYouApplication
         {
             var item = e.SelectedItem as StartPageMenuItem;
             if (item == null)
+            {
+
                 return;
+            }
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;

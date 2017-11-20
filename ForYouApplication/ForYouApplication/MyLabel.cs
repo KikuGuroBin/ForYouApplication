@@ -12,7 +12,7 @@ namespace ForYouApplication
 
         public MyLabel()
         {
-            Touch = (s, e) => {};
+            Touch = (s, e) => { };
         }
     }
 }

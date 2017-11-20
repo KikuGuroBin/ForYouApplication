@@ -11,12 +11,7 @@
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
-            <StackLayout
-                x:Name="EditLay">
-                <Editor x:Name="SendText"
-                    VerticalOptions="FillAndExpand"
-                    />
-            </StackLayout>
+            
             <StackLayout
                 Orientation="Vertical">
 

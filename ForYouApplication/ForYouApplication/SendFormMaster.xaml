@@ -23,13 +23,7 @@
             <RowDefinition Height="15"/>
               -->
           </Grid.RowDefinitions>
-          <Label
-              x:Name="ListHeader"
-              Grid.Column="1"
-              Grid.Row="1"
-              Text="AppNameと接続中…"
-              Style="{DynamicResource SubtitleStyle}"
-              FontSize="16"/>
+         
         </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>

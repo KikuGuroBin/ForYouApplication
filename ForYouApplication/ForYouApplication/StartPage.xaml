@@ -6,11 +6,6 @@
   <MasterDetailPage.Master>
     <pages:StartPageMaster x:Name="MasterPage" />
   </MasterDetailPage.Master>
-  <MasterDetailPage.Detail>
-    <NavigationPage>
-      <x:Arguments>
-        <pages:ClientTabbedPage />
-      </x:Arguments>
-    </NavigationPage>
-  </MasterDetailPage.Detail>
+    <MasterDetailPage.Detail>
+    </MasterDetailPage.Detail>
 </MasterDetailPage>

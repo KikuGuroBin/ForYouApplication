@@ -16,8 +16,6 @@ namespace ForYouApplication
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SendTextPage : MyContentPage
 	{
-        /* リモートホストとの通信用 */
-        private AsyncTcpClient Client;
 
         /* データバインディング用インスタンス */
         private LabelSize ArrowSize;
@@ -55,7 +53,6 @@ namespace ForYouApplication
             ShortCutList.BindingContext = new ShortCutListViewModel();
             
             /* イベント設定 */
-            Event += PageTouch;
             ShortCutShow.MyEvent += ShortCutTouch;
             PCKeyShow.MyEvent += PCKeyTouch;
         }
@@ -186,151 +183,33 @@ namespace ForYouApplication
         /* ショートカットリストのアイテムが選択されたときのイベント */
         private void ShortCutListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (Client == null)
-            {
-                return;
-            }
-
-            /* 選択されたリストアイテム取得 */
-            ShortCutListItem item = e.SelectedItem as ShortCutListItem;
-
-            /* アイテムのフィールドIDを取得 */
-            int id = item?.Id ?? -1;
-
-            if (id == -1)
-            {
-                return;
-            }
-
-            /* ショートカットコマンドの取得 */
-            string send = item.Send;
-
-            /* ショートカット送信 */
-            Client.Send(send);
-
-            ShortCutList.SelectedItem = null;
+           
         }
 
 
         /* Editorのテキストが変更(入力、変換、削除)されたときのイベント */
         private void EditorTextChanged(object sender, EventArgs args)
         {
-            /* TextChange中からのTextChange発生を抑制 */
-            if (!EditorFlag)
-            {
-                /* テキスト送信とEditor.Text操作 */
-                SendText(SendEditor.Text);
-            }
+           
         }
 
         /* シフトラベルタップ時のイベント */
         private void ShiftTap(object sender, EventArgs args)
         {
-            /* シフトモードON時には使用できるラベルの背景色を変える */
-            if (!ShiftFlag)
-            {
-                UpLabel.BackgroundColor = LightYellow;
-                DownLabel.BackgroundColor = LightYellow;
-                RightLabel.BackgroundColor = LightYellow;
-                LeftLabel.BackgroundColor = LightYellow;
-                Tab.BackgroundColor = LightYellow;
-            }
-            /* OFFにしたときに背景色を戻す */
-            else
-            {
-                UpLabel.BackgroundColor = Color.White;
-                DownLabel.BackgroundColor = Color.White;
-                RightLabel.BackgroundColor = Color.White;
-                LeftLabel.BackgroundColor = Color.White;
-                Tab.BackgroundColor = Color.White;
-            }
-
-            ShiftFlag = !ShiftFlag;
         }
-
-        /* ShortCutList表示時の背面のBoxViewをタップしたときのイベント 
-        private async void BoxViewTap(object sender, EventArgs args)
-        {
-            Rectangle rc = new Rectangle(Width - Width / 3, 0, Width / 3, Height);
-            await Task.Run(() =>
-            {
-                double move = (Width / 3) / 5;
-
-                rc.X += move;
-
-                while (Width > rc.X)
-                {
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await ShortCutPane.LayoutTo(rc);
-                        Thread.Sleep(1);
-                    });
-
-                    rc.X += move;
-                }
-            });
-        }
-        */
+        
 
         /* PC操作キータッチ時のイベント */
         private void SubKeyTap(object sender, EventArgs args)
         {
-            if (Client == null)
-            {
-                return;
-            }
-
-            if (sender.Equals(BackLabel))
-            {
-                if (!ShiftFlag)
-                {
-                    Client.Send("<BAC>");
-                }
-            }
-            else if (sender.Equals(UpLabel))
-            {
-                Client.Send("<UPP>");
-            }
-            else if (sender.Equals(RightLabel))
-            {
-                Client.Send("<RIG>");
-            }
-            else if (sender.Equals(DownLabel))
-            {
-                Client.Send("<DOW>");
-            }
-            else if (sender.Equals(LeftLabel))
-            {
-                Client.Send("<LEF>");
-            }
-            else if (sender.Equals(Shift))
-            {
-                Client.Send("<SHI>");
-            }
-            else if (sender.Equals(Tab))
-            {
-                Client.Send("<TAB>");
-            }
-            else if (sender.Equals(Enter))
-            {
-                Client.Send("<ENT>");
-            }
-            else if (sender.Equals(ChangeTab))
-            {
-                if (!ShiftFlag)
-                {
-                    Client.Send("<CTA>");
-                }
-            }
+           
         }
 
         /* 
          * ページに対するモーション検知イベント
          * MyContentPageRendererからのコールバック 
          */
-        private void PageTouch(object sender, MyContentEventArgs args)
-        {
-        }
+       
 
         /* 
          * ショートカットボタン用タッチ時のイベント 
@@ -398,84 +277,9 @@ namespace ForYouApplication
          * リモートホストへの送信とEditor.Textの操作 
          * TextChangeイベント制御のため非同期処理
          */
-        private async void SendText(string text)
+        private void SendText(string text)
         {
-            /* テキストチェンジ開始 */
-            EditorFlag = true;
-
-            await Task.Run(() =>
-            {
-                try
-                {
-                    /* 加工後の文字列とEditorを操作するための数値を取得 */
-                    (int index, string send) process = SaveText == null || SaveText == "" ?
-                                                       (-1, text) : TextProcess.SendContentDeicsion(SaveText, text);
-
-                    string send = process.send;
-
-                    /* リモートホストへ送信 */
-                    if (send == "\n")
-                    {
-                        /* 改行文字のみの入力の場合は改行用コマンドを送る */
-                        Client.Send("<ENT>");
-                    }
-                    else
-                    {
-                        /* それ以外は普通に送信する */
-                        Client.Send(send);
-                    }
-                    
-                    /* クライアントが変換を行った場合 
-                       TODO:イベントの性質上小文字、濁点などでも反応する
-
-                    if (process.index > -1)
-                    {
-                        /* 保存する文字列を抽出 
-                        string save = text.Substring(0, process.index + 1);
-
-                        /* Editor.Textに残す文字を抽出 
-                        text = text.Substring(process.index + 1);
-
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            /* Editor.Text00更 
-                            DetailPage.Editor.Text = text;
-                        });
-
-                        /* ログに保存する 
-                        SendLog.Enqueue(save);
-                    }
-
-                    /* クライアントが改行した場合 */
-                    if (text.IndexOf("\n") > -1)
-                    {
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            /* Editor.Textを空白にする */
-                            SendEditor.Text = "";
-                        });
-                    }
-
-                    /* 現在のEditorのテキストの内容を保存 */
-                    SaveText = text;
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine("deg : SendTextPage.Send" + e);
-                }
-
-            });
-
-            /* テキストチェンジ終了 */
-            EditorFlag = false;
-        }
-
-        public void SetClient(AsyncTcpClient client)
-        {
-            Client = client;
-
-            /* 受信待ち開始 */
-            Client.Receive();
+           
         }
 
         /* Viewを動かすメソッド */
@@ -730,7 +534,10 @@ namespace ForYouApplication
             void OnPropertyChanged([CallerMemberName] string propertyName = "")
             {
                 if (PropertyChanged == null)
+                {
+
                     return;
+                }
 
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }

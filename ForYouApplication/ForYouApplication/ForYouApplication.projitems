@@ -12,26 +12,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)AsyncReceiver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AsyncTcpClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ClientTabbedPage.xaml.cs">
-      <DependentUpon>ClientTabbedPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)IClipBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)enum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INotification.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ManipulationDeltaRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyBoxView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyBoxViewEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MyContentEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyContentPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MyIPAddress.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyLabel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MyLabelEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyTabbedPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendTextPage.xaml.cs">
       <DependentUpon>SendTextPage.xaml</DependentUpon>
@@ -52,7 +40,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)StartPageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)TrackPad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendFormPage.xaml.cs">
       <DependentUpon>SendFormPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -68,21 +55,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)SendFormMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Sanitizing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShortCutListItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TextProcess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TitleCall.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackPadPage.xaml.cs">
-      <DependentUpon>TrackPadPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Translation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -107,12 +84,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)TrackPadPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -132,12 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)SendTextPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ClientTabbedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

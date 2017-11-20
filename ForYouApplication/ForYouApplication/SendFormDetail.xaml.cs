@@ -36,7 +36,7 @@ namespace ForYouApplication
         }
 
         double LabelWidth;
-        
+
         /*ラベルたち*/
         public Label Uplabel1;
         public Label Backlabel1;
@@ -60,7 +60,6 @@ namespace ForYouApplication
             Padding = new Thickness(0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
 
             /* アイテムをSendFormPageで参照できるようにメンバ変数に格納 */
-            Editor = SendText;
             ShortCutPane = SidePane;
             Uplabel1 = UpLabel;
             Backlabel1 = BackLabel;
@@ -68,7 +67,7 @@ namespace ForYouApplication
             Downlabel1 = DownLabel;
             Rightlabel1 = RightLabel;
             Shift = Swift;
-            Tab = Tub; 
+            Tab = Tub;
             ChangeTab = ChanTab;
             Enter = Ender;
 
@@ -79,7 +78,7 @@ namespace ForYouApplication
             BindingContext = new ShortCutListViewModel();
             ShortCutList = ShortList;
         }
-      
+
         /* 画面サイズが変更されたときのイベント */
         protected override void OnSizeAllocated(double width, double height)
         {
@@ -123,12 +122,12 @@ namespace ForYouApplication
                 ShotcutLabel.HeightRequest = labelHeight;
                 Enter.HeightRequest = labelHeight;
 
-                MyBox.TranslationY = 300;
-                
-                EditLay.HeightRequest = labelHeight * 1.5;
+                /* エディターの幅、高さを設定
+                SendText.HeightRequest = LabelWidth * 2;
+                SendText.WidthRequest = labelHeight * 1.5;
+                */
 
-                /* エディターにフォーカスを合わせる */
-                SendText.Focus();
+              
 
                 /* 次回以降呼ばれないようにする */
                 FirstOrder = false;
@@ -148,7 +147,10 @@ namespace ForYouApplication
                 }),
                 Constraint.RelativeToParent((p) => {
                     if (PanelWidth == -1)
+                    {
                         PanelWidth = p.Width / 3;
+                    }
+
                     return PanelWidth;
                 }),
                 Constraint.RelativeToParent((p) => {
@@ -191,8 +193,7 @@ namespace ForYouApplication
                 */
 
                 await ShortCutPane.LayoutTo(rect, 100, Easing.CubicIn);
-
-                EditLay.WidthRequest = EditLay.Width - ShortCutPane.Width - 20;
+                
             }
             else
             {
@@ -201,7 +202,7 @@ namespace ForYouApplication
                 var rect2 = new Rectangle(0, 0, MainLayout.Width - ShortCutPane.Width, MainLayout.Height);
 
                 await ShortCutPane.LayoutTo(rect, 50, Easing.CubicOut);
-                //await MainLayout.LayoutTo(rect2, 50, Easing.CubicOut);
+                await MainLayout.LayoutTo(rect2, 50, Easing.CubicOut);
             }
         }
 
@@ -264,7 +265,9 @@ namespace ForYouApplication
             void OnPropertyChanged([CallerMemberName] string propertyName = "")
             {
                 if (PropertyChanged == null)
+                {
                     return;
+                }
 
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }

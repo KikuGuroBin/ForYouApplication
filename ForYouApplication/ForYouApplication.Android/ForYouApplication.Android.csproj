@@ -121,10 +121,9 @@
   <ItemGroup>
     <Compile Include="DroidNotification.cs" />
     <Compile Include="MyBoxViewRenderer.cs" />
-    <Compile Include="MyContentPageRenderer.cs" />
+    <Compile Include="MyContentEventArgs.cs" />
+    <Compile Include="MyLabelEventArgs.cs" />
     <Compile Include="MyLabelRenderer.cs" />
-    <Compile Include="MyTabbedRenderer.cs" />
-    <Compile Include="TrackPadRenderer.cs" />
     <Compile Include="DroidClipBoard.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
